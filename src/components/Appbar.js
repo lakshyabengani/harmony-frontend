@@ -1,3 +1,4 @@
+import "../styles/appbar.style.css";
 import { Nav, Navbar, Button } from "react-bootstrap";
 
 const Appbar = () => (
