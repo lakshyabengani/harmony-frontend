@@ -1,11 +1,14 @@
 import "./App.css";
-import "./styles/appbar.style.css";
 import Appbar from "./components/Appbar";
+import Home from "./components/Home";
 
 function App() {
   return (
     <div className="App">
       <Appbar />
+
+      {/* TODO: Routing stuffs */}
+      <Home />
     </div>
   );
 }
