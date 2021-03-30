@@ -1,0 +1,14 @@
+.home-title {
+  font-family: "Libre Baskerville", sans-serif;
+  line-height: 1.25;
+}
+
+.home-title {
+  font-size: calc(3.525rem + 3.3vw);
+}
+
+@media (min-width: 1200px) {
+  .home-title {
+    font-size: 7rem;
+  }
+}
