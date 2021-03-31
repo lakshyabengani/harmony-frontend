@@ -1,7 +1,7 @@
 import "../styles/appbar.style.css";
 import { Nav, Navbar, Button } from "react-bootstrap";
 
-const Appbar = () => (
+const Appbar = props => (
   <Navbar collapseOnSelect expand="lg">
     <Navbar.Brand href="#home">
       <span className="appbar-title text-white">Harmony</span>
@@ -17,7 +17,12 @@ const Appbar = () => (
           About
         </Nav.Link>
         <Button variant="secondary">
-          <span className="appbar-subtitle">LOG IN</span>
+          <span
+            className="appbar-subtitle"
+            onClick={() => props.loginModalCallback(true)}
+          >
+            LOG IN
+          </span>
         </Button>
       </Nav>
     </Navbar.Collapse>

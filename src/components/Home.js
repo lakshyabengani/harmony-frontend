@@ -1,7 +1,9 @@
 import "../styles/home.style.css";
 import { Button, Col, Container, Row } from "react-bootstrap";
 
-const Home = () => (
+import Login from "./Login.js";
+
+const Home = props => (
   <Container className="pt-5">
     <Row className="mt-5 pt-5">
       <Col>
@@ -15,6 +17,7 @@ const Home = () => (
         </Button>
       </Col>
     </Row>
+    <Login show={props.loginModalShow} onHide={props.loginModalCallback} />
   </Container>
 );
 
