@@ -1,5 +1,6 @@
 import "../styles/appbar.style.css";
 import { Nav, Navbar, Button } from "react-bootstrap";
+import { action } from "../config";
 
 const Appbar = props => (
   <Navbar collapseOnSelect expand="lg">
@@ -19,7 +20,7 @@ const Appbar = props => (
         <Button variant="secondary">
           <span
             className="appbar-subtitle"
-            onClick={() => props.loginModalCallback(true)}
+            onClick={() => { props.loginModalCallback(true); props.changeModalName(action.LOGIN) }}
           >
             LOG IN
           </span>

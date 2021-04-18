@@ -2,6 +2,7 @@ import "../styles/home.style.css";
 import { Button, Col, Container, Row } from "react-bootstrap";
 
 import Login from "./Login.js";
+import { action } from "../config";
 
 const Home = props => (
   <Container className="pt-5">
@@ -13,11 +14,11 @@ const Home = props => (
     <Row>
       <Col>
         <Button variant="secondary" size="lg">
-          <span>SIGN UP</span>
+          <span onClick={() => {props.loginModalCallback(true) ; props.changeModalName(action.SIGNUP)}}>SIGN UP</span>
         </Button>
       </Col>
     </Row>
-    <Login show={props.loginModalShow} onHide={props.loginModalCallback} />
+    <Login show={props.loginModalShow} onHide={props.loginModalCallback} modalName={props.modalName}/>
   </Container>
 );
 
