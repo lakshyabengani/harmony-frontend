@@ -18,7 +18,7 @@ const Home = props => (
         </Button>
       </Col>
     </Row>
-    <Login show={props.loginModalShow} onHide={props.loginModalCallback} modalName={props.modalName}/>
+    <Login show={props.loginModalShow} onHide={props.loginModalCallback} modalName={props.modalName} changePath={props.changePath}/>
   </Container>
 );
 
