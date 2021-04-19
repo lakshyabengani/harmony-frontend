@@ -1,0 +1,9 @@
+.landing-page {
+  text-align: center;
+  height: 100%;
+}
+
+.landing-page-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
