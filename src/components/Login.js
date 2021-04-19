@@ -4,7 +4,6 @@ import "../styles/Login.style.css";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {action} from '../config'
-import { Link } from "react-router-dom";
 
 const Login = (props) => {
     const [loginForm, setLoginForm] = useState({ username: "", password: "" , retypePassword: ""});
@@ -24,6 +23,8 @@ const Login = (props) => {
             alert("Form submitted");
             setLoginForm({username: "" , password: "" , retypePassword: ""});
             props.onHide(false);
+            if(props.modalName === action.SIGNUP) props.changePath("/signup");
+            else props.changePath("/home");
         }
         else{
             alert("Both username and password needs to be filled");
@@ -35,11 +36,6 @@ const Login = (props) => {
             handleSubmit();
         }
     };
-
-    const getPath = () => {
-        if(props.modalName === action.SIGNUP) return "/signup"
-        else return "/home"
-    }
 
     return (
         <React.Fragment>
@@ -91,7 +87,6 @@ const Login = (props) => {
                             </Form>
                         </Col>
                     </Row>
-                    <Link to={getPath()}>
                     <Button
                         variant="primary"
                         onClick={handleSubmit}
@@ -100,7 +95,6 @@ const Login = (props) => {
                     >
                         SUBMIT
                     </Button>
-                    </Link>
                     <div className="buttonText">
                         <p>OR</p>
                     </div>
