@@ -3,9 +3,10 @@ import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import "../styles/Login.style.css";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {action} from '../config'
 
 const Login = (props) => {
-    const [loginForm, setLoginForm] = useState({ username: "", password: "" });
+    const [loginForm, setLoginForm] = useState({ username: "", password: "" , retypePassword: ""});
 
     const handleChange = (event) => {
         event.preventDefault();
@@ -14,7 +15,19 @@ const Login = (props) => {
 
     const handleSubmit = () => {
         if (loginForm.username.length > 0 && loginForm.password.length > 0) {
+            if(props.modalName === action.SIGNUP && loginForm.password !== loginForm.retypePassword){
+                alert("Passwords do not match");
+                setLoginForm({ ...loginForm, retypePassword: "" });
+                return;
+            }
             alert("Form submitted");
+            setLoginForm({username: "" , password: "" , retypePassword: ""});
+            props.onHide(false);
+            if(props.modalName === action.SIGNUP) props.changePath("/signup");
+            else props.changePath("/home");
+        }
+        else{
+            alert("Both username and password needs to be filled");
         }
     };
 
@@ -33,7 +46,7 @@ const Login = (props) => {
                 centered
             >
                 <Modal.Header closeButton className="text-center">
-                    <Modal.Title>Login</Modal.Title>
+                    <Modal.Title>{props.modalName}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Row>
@@ -59,6 +72,18 @@ const Login = (props) => {
                                         onKeyPress={handleSubmitKeypress}
                                     />
                                 </Form.Group>
+                                {props.modalName === action.SIGNUP &&
+                                    <Form.Group controlId="retypePassword">
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Retype Password"
+                                            onChange={handleChange}
+                                            value={loginForm.retypePassword}
+                                            name="retypePassword"
+                                            onKeyPress={handleSubmitKeypress}
+                                        />
+                                    </Form.Group>
+                                }
                             </Form>
                         </Col>
                     </Row>
@@ -80,7 +105,7 @@ const Login = (props) => {
                         style={{ borderRadius: 20 }}
                     >
                         <FontAwesomeIcon icon={faGoogle} pull="left" />
-                        LOGIN USING GOOGLE
+                        {props.modalName} USING GOOGLE
                     </Button>
                 </Modal.Body>
             </Modal>

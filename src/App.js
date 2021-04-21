@@ -1,24 +1,24 @@
-import { useState } from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
-import Appbar from "./components/Appbar";
-import Home from "./components/Home";
+import LandingPage from "./views/landingPage";
+import SignupPage from "./views/signupPage";
 
 function App() {
-  const [loginModalShow, setLoginModalShow] = useState(false);
-  const loginModalCallback = show => {
-    setLoginModalShow(show);
-  };
-
+  
   return (
-    <div className="App">
-      <Appbar loginModalCallback={loginModalCallback} />
-
-      {/* TODO: Routing stuffs */}
-      <Home
-        loginModalShow={loginModalShow}
-        loginModalCallback={loginModalCallback}
-      />
-    </div>
+    <Switch>
+      <Route exact path="/home">
+        <div className="App">
+          <LandingPage />
+        </div>
+      </Route>
+      <Route exact path='/'>
+        <Redirect to='/home' />
+      </Route>
+      <Route path='/signup'>
+        <SignupPage />
+      </Route>
+    </Switch>
   );
 }
 
