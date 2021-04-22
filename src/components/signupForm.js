@@ -1,11 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { faSpotify, faYoutube } from "@fortawesome/free-brands-svg-icons";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
+import { faUser, faCalendar } from "@fortawesome/free-regular-svg-icons";
 import { faBriefcase, faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Button, ButtonGroup, Col, Form, InputGroup, ToggleButton } from "react-bootstrap";
 import { sexual_orientations } from "../config";
+import DatePicker from 'react-date-picker';
+
 
 const SignupForm = props => {
 
@@ -13,7 +15,6 @@ const SignupForm = props => {
     firstName: "",
     gender: "",
     bio: "",
-    birthday: "",
     minAge: 18,
     maxAge: 21,
     job: "",
@@ -24,9 +25,12 @@ const SignupForm = props => {
     spotifyLink: "",
   });
 
+  const [birthday, onChange] = useState(new Date());
+
   const handleChange = (event) => {
     event.preventDefault();
     setSignupForm({...signupForm,[event.target.name] : event.target.value });
+    
   }
 
   const validateForm = () => {
@@ -62,33 +66,29 @@ const SignupForm = props => {
     }
   }
 
-  const radios = [
-    {name : 'gender' , value :"Male"},
-    {name : 'gender' , value :"Female"},
-  ]
 
-  return(
-    <div style={{padding:"40px 20px"}}>
-      <Form >
+  return (
+    <div style={{ padding: "40px 20px" }}>
+      <Form>
         <Form.Row>
-            <Form.Group as={Col} controlId="firstName">
-              <Form.Label>First Name*</Form.Label>
-              <InputGroup className="mb-2" hasValidation>
-                <InputGroup.Prepend>
-                  <InputGroup.Text>
-                    <FontAwesomeIcon icon={faUser} />
-                  </InputGroup.Text>
-                </InputGroup.Prepend>
-                <Form.Control 
-                  type="text"
-                  name="firstName"
-                  placeholder="First Name"
-                  value={signupForm.firstName}
-                  onChange={handleChange}
-                />
-              </InputGroup>
-            </Form.Group>
-            {/* <Form.Group as={Col} controlId="gender">
+          <Form.Group as={Col} controlId="firstName">
+            <Form.Label>First Name*</Form.Label>
+            <InputGroup className="mb-2" hasValidation>
+              <InputGroup.Prepend>
+                <InputGroup.Text>
+                  <FontAwesomeIcon icon={faUser} />
+                </InputGroup.Text>
+              </InputGroup.Prepend>
+              <Form.Control
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                value={signupForm.firstName}
+                onChange={handleChange}
+              />
+            </InputGroup>
+          </Form.Group>
+          {/* <Form.Group as={Col} controlId="gender">
               <Form.Label>Gender*</Form.Label>
               <ButtonGroup toggle>
               {radios.map((radio, idx) => (
@@ -108,17 +108,17 @@ const SignupForm = props => {
             </Form.Group> */}
         </Form.Row>
         <Form.Row>
-            <Form.Group as={Col} controlId="bio">
+          <Form.Group as={Col} controlId="bio">
             <Form.Label>Bio</Form.Label>
-            <Form.Control 
-              as="textarea" 
+            <Form.Control
+              as="textarea"
               rows={3}
               name="bio"
               value={signupForm.bio}
               onChange={handleChange}
               placeholder="Enter Your Bio Here..."
-              />
-            </Form.Group>
+            />
+          </Form.Group>
         </Form.Row>
         <Form.Row>
           <Form.Group as={Col} controlId="job">
@@ -129,7 +129,7 @@ const SignupForm = props => {
                   <FontAwesomeIcon icon={faBriefcase} />
                 </InputGroup.Text>
               </InputGroup.Prepend>
-              <Form.Control 
+              <Form.Control
                 type="text"
                 name="job"
                 placeholder="Job"
@@ -146,7 +146,7 @@ const SignupForm = props => {
                   <FontAwesomeIcon icon={faGraduationCap} />
                 </InputGroup.Text>
               </InputGroup.Prepend>
-              <Form.Control 
+              <Form.Control
                 type="text"
                 name="education"
                 placeholder="Education"
@@ -157,9 +157,58 @@ const SignupForm = props => {
           </Form.Group>
         </Form.Row>
         <Form.Row>
-          <Form.Group as={Col} controlId="ageRange" >
+          <Col sm={6}>
+            <Form.Group controlId="gender">
+              <Form.Label>Gender</Form.Label>
+              <div
+                key="inline-radio"
+                className="mb-3"
+                onChange={handleChange}
+                value={signupForm.gender}>
+                <Form.Check
+                  inline
+                  name="gender"
+                  type="radio"
+                  label="Male"
+                  id="male"
+                  value="male"
+                  className="mr-2"
+                />
+                <Form.Check
+                  inline
+                  name="gender"
+                  type="radio"
+                  label="Female"
+                  value="female"
+                  id="female"
+                />
+              </div>
+            </Form.Group>
+          </Col>
+          <Col sm={6}>
+            <Form.Group controlId="dob">
+              <Form.Label>Date of Birth</Form.Label>
+              <InputGroup>
+                <InputGroup.Prepend>
+                  <InputGroup.Text>
+                    <FontAwesomeIcon icon={faCalendar} />
+                  </InputGroup.Text>
+                </InputGroup.Prepend>
+                <DatePicker onChange={onChange} value={birthday} calendarIcon="" />
+              </InputGroup>
+            </Form.Group>
+          </Col>
+        </Form.Row>
+
+        <Form.Row>
+          <Form.Group as={Col} controlId="ageRange">
             <Form.Label>Age Range</Form.Label>
-            <div style={{display:'flex' , flexDirection: 'row', justifyContent:'space-between'}}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}>
               <Form.Text>Min Age</Form.Text>
               <Form.Text>{signupForm.minAge}</Form.Text>
             </div>
@@ -173,7 +222,12 @@ const SignupForm = props => {
               onChange={handleChange}
               custom
             />
-            <div style={{display:'flex' , flexDirection: 'row', justifyContent:'space-between'}}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}>
               <Form.Text>Max Age</Form.Text>
               <Form.Text>{signupForm.maxAge}</Form.Text>
             </div>
@@ -192,58 +246,58 @@ const SignupForm = props => {
         <Form.Row>
           <Form.Group as={Col} controlId="orientaion">
             <Form.Label>Sexual Orientation</Form.Label>
-            <Form.Control 
+            <Form.Control
               as="select"
               name="orientation"
               defaultValue={signupForm.orientaion}
-              onChange={handleChange} 
+              onChange={handleChange}
               custom>
-              {sexual_orientations.map((orientation,idx) => 
+              {sexual_orientations.map((orientation, idx) => (
                 <option key={idx}>{orientation}</option>
-              )}
+              ))}
             </Form.Control>
           </Form.Group>
           <Form.Group as={Col} controlId="showMe">
             <Form.Label>Show Me</Form.Label>
-            <Form.Control 
+            <Form.Control
               as="select"
               name="showMe"
               defaultValue={signupForm.showMe}
               onChange={handleChange}
               custom>
-                <option>Men</option>
-                <option>Women</option>
-              </Form.Control>
+              <option>Men</option>
+              <option>Women</option>
+            </Form.Control>
           </Form.Group>
         </Form.Row>
         <Form.Row>
           <Col>
-            <Button 
-            variant="success"
-            block
-            >
-              <FontAwesomeIcon icon={faSpotify} pull="left"/>
-              SPOTIFY
+            <Button variant="success" block>
+              <FontAwesomeIcon icon={faSpotify} size="2x" pull="left" />
+              <span style={{ fontSize: "125%" }}>Spotify</span>
             </Button>
           </Col>
           <Col>
-            <Button 
-            variant="danger"
-            block
-            >
-              <FontAwesomeIcon icon={faYoutube} pull="left"/>
-              YT Music
+            <Button variant="danger" block>
+              <FontAwesomeIcon icon={faYoutube} size="2x" pull="left" />
+              <span style={{ fontSize: "125%" }}>YT Music</span>
             </Button>
           </Col>
         </Form.Row>
         <Form.Row>
-          <Form.Group as={Col} controlId="sumbit" style={{padding : "40px 20px"}}>
-            <Button variant="primary" block onClick={handleSubmit}> CONTINUE </Button>
+          <Form.Group
+            as={Col}
+            controlId="sumbit"
+            style={{ padding: "40px 20px" }}>
+            <Button variant="primary" block onClick={handleSubmit}>
+              {" "}
+              CONTINUE{" "}
+            </Button>
           </Form.Group>
         </Form.Row>
       </Form>
     </div>
-  )
+  );
 }
 
 export default SignupForm;
