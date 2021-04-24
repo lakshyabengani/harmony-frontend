@@ -63,6 +63,7 @@ const SignupForm = props => {
         ytmusicLink: "",
         spotifyLink: "",
       });
+      props.submitAction(true);
     }
   }
 

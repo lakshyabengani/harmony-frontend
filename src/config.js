@@ -11,3 +11,13 @@ exports.sexual_orientations = [
   'Questioning',
   'Straight'
 ] 
+
+exports.passions = [
+  'Travelling',
+  'Singing',
+  'Sports',
+  'Poetry',
+  'Drawing',
+  'Writing',
+  'Dancing',
+]
