@@ -7,25 +7,26 @@ import { useState } from "react";
 import { Button, ButtonGroup, Col, Form, InputGroup, ToggleButton } from "react-bootstrap";
 import { sexual_orientations } from "../config";
 import DatePicker from 'react-date-picker';
+import { postSettingsApi } from "../api/backend";
 
 
 const SignupForm = props => {
 
   const [signupForm,setSignupForm] = useState({
-    firstName: "",
+    name: "",
     gender: "",
     bio: "",
-    minAge: 18,
-    maxAge: 21,
+    age_min: 18,
+    age_max: 21,
     job: "",
     education: "",
-    showMe: "Men",
+    interested_gender: "Men",
     orientaion: "Straight",
-    ytmusicLink: "",
-    spotifyLink: "",
+    ytmusic_link: "",
+    spotify_link: "",
   });
 
-  const [birthday, onChange] = useState(new Date());
+  const [birth_date, onChange] = useState(new Date());
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -34,13 +35,13 @@ const SignupForm = props => {
   }
 
   const validateForm = () => {
-    if(signupForm.firstName === "" || signupForm.gender === "" || signupForm.birthday === "" ){
+    if(signupForm.name === "" || signupForm.gender === "" || signupForm.birthday === "" ){
       alert('Fill in the mandatory details');
       return false;
     }
-    else if(signupForm.minAge >= signupForm.maxAge){
+    else if(signupForm.age_min >= signupForm.age_max){
       alert('max age should be greater than min age ');
-      setSignupForm({ ...signupForm, maxAge: 21 , minAge : 18 });
+      setSignupForm({ ...signupForm, age_max: 21 , age_min : 18 });
       return false;
     }
     else return true;
@@ -48,20 +49,31 @@ const SignupForm = props => {
 
   const handleSubmit = (event) => {
     if(validateForm()){
+
+      const temp = Object.assign({},signupForm);
+      const data = Object.assign(temp,{
+        birth_date : new Date(birth_date),
+      });
+      
+      console.log(data);
+      
+      // postSettingsApi(data).then(res => console.log(res)).catch(err => console.log(err));
+
       alert("Form Submitted");
+      
       setSignupForm({
-        firstName: "",
+        name: "",
         gender: "",
         bio: "",
         birthday: "",
-        minAge: 18,
-        maxAge: 21,
+        age_min: 18,
+        age_max: 21,
         job: "",
         education: "",
-        showMe: "Men",
+        interested_gender: "Men",
         orientaion: "Straight",
-        ytmusicLink: "",
-        spotifyLink: "",
+        ytmusic_link: "",
+        spotify_link: "",
       });
       props.submitAction(true);
     }
@@ -82,31 +94,13 @@ const SignupForm = props => {
               </InputGroup.Prepend>
               <Form.Control
                 type="text"
-                name="firstName"
+                name="name"
                 placeholder="First Name"
-                value={signupForm.firstName}
+                value={signupForm.name}
                 onChange={handleChange}
               />
             </InputGroup>
           </Form.Group>
-          {/* <Form.Group as={Col} controlId="gender">
-              <Form.Label>Gender*</Form.Label>
-              <ButtonGroup toggle>
-              {radios.map((radio, idx) => (
-                <ToggleButton
-                  key={idx}
-                  type="radio"
-                  variant="outline-dark"
-                  name="gender"
-                  value={signupForm.gender}
-                  checked= {signupForm.gender === radio.value}
-                  onChange={handleChange}
-                >
-                {radio.value}
-                </ToggleButton>
-                ))}
-              </ButtonGroup>
-            </Form.Group> */}
         </Form.Row>
         <Form.Row>
           <Form.Group as={Col} controlId="bio">
@@ -195,7 +189,7 @@ const SignupForm = props => {
                     <FontAwesomeIcon icon={faCalendar} />
                   </InputGroup.Text>
                 </InputGroup.Prepend>
-                <DatePicker onChange={onChange} value={birthday} calendarIcon="" />
+                <DatePicker onChange={onChange} value={birth_date} calendarIcon="" />
               </InputGroup>
             </Form.Group>
           </Col>
@@ -211,15 +205,15 @@ const SignupForm = props => {
                 justifyContent: "space-between",
               }}>
               <Form.Text>Min Age</Form.Text>
-              <Form.Text>{signupForm.minAge}</Form.Text>
+              <Form.Text>{signupForm.age_min}</Form.Text>
             </div>
             <Form.Control
               type="range"
               min="18"
               max="100"
               step="1"
-              value={signupForm.minAge}
-              name="minAge"
+              value={signupForm.age_min}
+              name="age_min"
               onChange={handleChange}
               custom
             />
@@ -230,15 +224,15 @@ const SignupForm = props => {
                 justifyContent: "space-between",
               }}>
               <Form.Text>Max Age</Form.Text>
-              <Form.Text>{signupForm.maxAge}</Form.Text>
+              <Form.Text>{signupForm.age_max}</Form.Text>
             </div>
             <Form.Control
               type="range"
               min="18"
               max="100"
               step="1"
-              value={signupForm.maxAge}
-              name="maxAge"
+              value={signupForm.age_max}
+              name="age_max"
               onChange={handleChange}
               custom
             />
@@ -262,8 +256,8 @@ const SignupForm = props => {
             <Form.Label>Show Me</Form.Label>
             <Form.Control
               as="select"
-              name="showMe"
-              defaultValue={signupForm.showMe}
+              name="interested_gender"
+              defaultValue={signupForm.interested_gender}
               onChange={handleChange}
               custom>
               <option>Men</option>

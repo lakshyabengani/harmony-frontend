@@ -17,7 +17,6 @@ const PassionModal = (props) => {
     const selected = props.selectedList;
     const defaultList = passions.filter( word => word.toLowerCase().includes(searchText.toLowerCase())); 
     let options = null;
-    console.log(defaultList.length)
     if(defaultList.length === 0){
       console.log("here")
       options = <ListGroup.Item variant="light">No Items to Match your Choice :( </ListGroup.Item>

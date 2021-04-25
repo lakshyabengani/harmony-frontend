@@ -4,6 +4,7 @@ import "../styles/Login.style.css";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {action} from '../config'
+import { loginApi, signupApi } from "../api/backend";
 
 const Login = (props) => {
     const [loginForm, setLoginForm] = useState({ username: "", password: "" , retypePassword: ""});
@@ -15,16 +16,30 @@ const Login = (props) => {
 
     const handleSubmit = () => {
         if (loginForm.username.length > 0 && loginForm.password.length > 0) {
+            let submitted = false;
             if(props.modalName === action.SIGNUP && loginForm.password !== loginForm.retypePassword){
                 alert("Passwords do not match");
                 setLoginForm({ ...loginForm, retypePassword: "" });
                 return;
             }
-            alert("Form submitted");
-            setLoginForm({username: "" , password: "" , retypePassword: ""});
-            props.onHide(false);
-            if(props.modalName === action.SIGNUP) props.changePath("/signup");
-            else props.changePath("/home");
+            if(props.modalName === action.SIGNUP ){
+                signupApi(loginForm.username,loginForm.password).then( (res) => console.log(res) ).catch(err => console.log(err));
+                submitted = true;
+            }
+            else{
+                loginApi(loginForm.username,loginForm.password).then( (res) => console.log(res) ).catch(err => console.log(err));
+                submitted = true;
+            }
+            if(submitted){
+                alert("Form submitted");
+                setLoginForm({username: "" , password: "" , retypePassword: ""});
+                props.onHide(false);
+                if(props.modalName === action.SIGNUP) props.changePath("/signup");
+                else props.changePath("/home");
+            }
+            else{
+                alert("Error in form submission ");
+            }
         }
         else{
             alert("Both username and password needs to be filled");
