@@ -20,6 +20,11 @@ export const passions = [
   'Drawing',
   'Writing',
   'Dancing',
+  'Feminism',
+  'Politics',
+  'Sex',
+  'Psychology',
+  'Science'
 ]
 
 export const baseUrl = "https://harmony-backend.herokuapp.com"

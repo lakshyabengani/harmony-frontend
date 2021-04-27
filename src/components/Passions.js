@@ -4,6 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Badge , Button} from "react-bootstrap";
 import PassionModal from "./PassionModal";
+import "../styles/passion.style.css"
+
+
 
 const Passions = (props) => {
   
@@ -19,9 +22,9 @@ const Passions = (props) => {
 
   const renderPassionList = () => {
     const list = passionsList.map( (passions,idx) => 
-    <span key={idx} style={{fontSize: '1.5rem', padding:'5px'}}>
-      <Badge pill variant="dark" style={{padding:'5px'}}>
-        <span style={{padding:'10px'}}>{passions}</span>
+    <span key={idx} style={{fontSize: '1.2rem', padding:'5px'}}>
+      <Badge className="passionBadge" pill >
+        <span className="m-1">{passions}</span>
         <FontAwesomeIcon icon={faTimesCircle} onClick={ () => removePassion(passions)}/>
       </Badge> 
       </span>
@@ -31,11 +34,10 @@ const Passions = (props) => {
 
   return(
     <div>
-    <div style={{textAlign : 'center' , fontSize: '2rem', padding:"30px 40px"}} > Passions </div>
     {renderPassionList()}
-    <span style={{fontSize: '1.5rem', padding:'5px'}}>
-      <Badge as={Button} pill variant="primary" style={{padding:'5px'}} onClick={() => props.toggelModalShow(true)}>
-        <span style={{padding:'10px'}}>ADD</span>
+    <span style={{fontSize: '1.2rem', padding:'5px'}}>
+      <Badge as={Button} className="addpassionBadge" pill onClick={() => props.toggelModalShow(true)}>
+        <span className = "m-1">add</span>
         <FontAwesomeIcon icon={faPlusCircle} />
       </Badge> 
       </span>

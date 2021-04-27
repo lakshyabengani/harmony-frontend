@@ -43,12 +43,12 @@ const PassionModal = (props) => {
         onHide={() => { props.onHide(false); setSearchText("") }}
         aria-labelledby="contained-modal-title-vcenter"
         centered
-        scrollable
+        scrollable = {true}
       >
         <Modal.Header closeButton className="text-center">
           <Modal.Title>Passions</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{ maxHeight: '60vh'}}>
           <Row>
             <InputGroup as={Col} className="mb-3">
               <Form.Control

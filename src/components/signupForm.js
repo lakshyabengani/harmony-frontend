@@ -7,10 +7,24 @@ import { useState } from "react";
 import { Button, ButtonGroup, Col, Form, InputGroup, ToggleButton } from "react-bootstrap";
 import { sexual_orientations } from "../config";
 import DatePicker from 'react-date-picker';
+import Passions from '../components/Passions'
 import { postSettingsApi } from "../api/backend";
+import Images from "./Images";
 
 
 const SignupForm = props => {
+
+  const [passionModalShow, setPassionModalShow] = useState(false);
+
+  const [imagesModalShow, setImagesModalShow] = useState(false);
+
+  function toggleImagesModalShow(show){
+    setImagesModalShow(show);
+  }
+
+  function toggelModalShow(show) {
+    setPassionModalShow(show);
+  }
 
   const [signupForm,setSignupForm] = useState({
     name: "",
@@ -77,6 +91,7 @@ const SignupForm = props => {
       });
       props.submitAction(true);
     }
+    
   }
 
 
@@ -258,6 +273,7 @@ const SignupForm = props => {
               as="select"
               name="interested_gender"
               defaultValue={signupForm.interested_gender}
+
               onChange={handleChange}
               custom>
               <option>Men</option>
@@ -279,6 +295,24 @@ const SignupForm = props => {
             </Button>
           </Col>
         </Form.Row>
+        <Form.Row>
+          <Col>
+            <Form.Label className="mt-2">Passions</Form.Label>
+            <Passions
+              modalShow={passionModalShow}
+              toggelModalShow={toggelModalShow}
+            />
+          </Col>
+          
+          <Col>
+            <Form.Label className="mt-2">Add Images</Form.Label>
+            <Images
+              modalShow={imagesModalShow}
+              toggleModalShow={toggleImagesModalShow}
+            />
+          </Col>
+        </Form.Row>
+        
         <Form.Row>
           <Form.Group
             as={Col}
