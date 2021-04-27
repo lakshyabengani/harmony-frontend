@@ -3,6 +3,7 @@ import "./App.css";
 import DetailsPage from "./views/detailsPage";
 import LandingPage from "./views/landingPage";
 import SignupPage from "./views/signupPage";
+import HomePage from "./views/homePage"
 
 function App() {
   
@@ -21,6 +22,9 @@ function App() {
       </Route>
       <Route exact path='/details'>
         <DetailsPage />
+      </Route>
+      <Route exact path='/swipeDeck'>
+        <HomePage />
       </Route>
     </Switch>
   );

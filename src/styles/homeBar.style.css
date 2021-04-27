@@ -1,0 +1,9 @@
+.custom-carets .dropdown-toggle:after{
+  font-family: FontAwsome;
+  content: '\f142';
+  font-weight: 900;
+}
+
+.custom-carets .dropdown-toggle > span.caret {
+  display: none;
+}
