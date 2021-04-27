@@ -2,6 +2,16 @@
 import axios from "axios";
 import { baseUrl } from "../config";
 
+const generateResponse = (statusCode , data , error ) => {
+    
+    return {
+        status : statusCode,
+        data : data,
+        error : error
+    };
+
+}
+
 export const signupApi = async(user_email,user_password) => {
     try{
         const name = "Dummy";
@@ -23,14 +33,22 @@ export const signupApi = async(user_email,user_password) => {
 
         const res = await axios(config);
         
-        console.log(res);
-        
-        return res;
+        console.log(res.data);
+
+        let returnObject = null;
+
+        if(res.status === 200){
+            const token = res.data.token;
+            localStorage.setItem('JWTtoken',token);
+            returnObject = generateResponse(res.status,res.data,null)
+        }
+        else{
+            returnObject = generateResponse(res.status,null,res.data.msg);
+        }
+
+        return returnObject;
     
     }catch(err){
-       
-        console.log(err);
-       
         throw err;
     }
 }
@@ -47,14 +65,21 @@ export const loginApi = async(user_email,user_password) => {
         
         console.log(res);
         
-        const token = 'token'
-        localStorage.setItem('JWTtoken',token);
-        
-        return res;
+        let returnObject = null;
+
+        if(res.status === 200){
+            const token = res.data.token;
+            localStorage.setItem('JWTtoken',token);
+            returnObject = generateResponse(res.status,res.data,null)
+        }
+        else{
+            returnObject = generateResponse(res.status,null,res.data.msg);
+        }
+
+        return returnObject;
 
     }catch(err){
-       
-        console.log(err);
+
         throw err;
     }
 }
@@ -63,6 +88,7 @@ export const postSettingsApi = async( settings_form ) => {
     try{
         
         const token = localStorage.getItem('JWTtoken');
+        console.log(token+"---------------------");
         const data = JSON.stringify(settings_form);
         const config = {
             method: 'post',
@@ -74,13 +100,21 @@ export const postSettingsApi = async( settings_form ) => {
         }
 
         const res = await axios(config);
-
         console.log(res);
-        return res;
+
+        let returnObject = null;
+
+        if(res.status === 200){
+            returnObject = generateResponse(res.status,res.data,null)
+        }
+        else{
+            returnObject = generateResponse(res.status,null,res.data.message);
+        }
+
+        return returnObject;
 
     }catch(err){
 
-        console.log(err);
         throw err;
     }
 }

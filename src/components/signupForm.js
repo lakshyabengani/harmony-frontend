@@ -47,25 +47,13 @@ const SignupForm = props => {
     else return true;
   }
 
-  const handleSubmit = (event) => {
-    if(validateForm()){
-
-      const temp = Object.assign({},signupForm);
-      const data = Object.assign(temp,{
-        birth_date : new Date(birth_date),
-      });
-      
-      console.log(data);
-      
-      // postSettingsApi(data).then(res => console.log(res)).catch(err => console.log(err));
-
+  const postSubmitAction = (status,error_message) => {
+    if(status === 200){
       alert("Form Submitted");
-      
       setSignupForm({
         name: "",
         gender: "",
         bio: "",
-        birthday: "",
         age_min: 18,
         age_max: 21,
         job: "",
@@ -76,6 +64,26 @@ const SignupForm = props => {
         spotify_link: "",
       });
       props.submitAction(true);
+    }
+    else alert(error_message);
+  }
+
+  const handleSubmit = (event) => {
+    if(validateForm()){
+
+      const temp = Object.assign({},signupForm);
+      const data = Object.assign(temp,{
+        birth_date : new Date(birth_date),
+      });
+      
+      console.log(data);
+      
+      postSettingsApi(data)
+        .then( res => {
+          console.log(res);
+          postSubmitAction(res.status,res.error);
+        })
+        .catch(err => console.log(err));
     }
   }
 
