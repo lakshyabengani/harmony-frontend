@@ -1,9 +1,9 @@
-exports.action = {
+export const action = {
   LOGIN : 'LOGIN',
   SIGNUP: 'SIGN UP',
 };
 
-exports.sexual_orientations = [
+export const sexual_orientations = [
   'Lesbian',
   'Gay',
   'Bisexual',
@@ -12,7 +12,7 @@ exports.sexual_orientations = [
   'Straight'
 ] 
 
-exports.passions = [
+export const passions = [
   'Travelling',
   'Singing',
   'Sports',
@@ -20,4 +20,11 @@ exports.passions = [
   'Drawing',
   'Writing',
   'Dancing',
+  'Feminism',
+  'Politics',
+  'Sex',
+  'Psychology',
+  'Science'
 ]
+
+export const baseUrl = "https://harmony-backend.herokuapp.com"
