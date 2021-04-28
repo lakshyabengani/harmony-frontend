@@ -4,14 +4,10 @@ import LandingPage from "./views/landingPage";
 import SignupPage from "./views/signupPage";
 import HomePage from "./views/homePage"
 
-// test 1
-// test 2
-
 function App() {
   
   return (
     <Switch>
-         <div></div>
       <Route exact path="/home">
         <div className="App">
           <LandingPage />
