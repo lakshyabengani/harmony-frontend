@@ -1,0 +1,8 @@
+.image-upload>input {
+  display: none;
+}
+
+img:hover {
+    cursor: pointer;
+}
+

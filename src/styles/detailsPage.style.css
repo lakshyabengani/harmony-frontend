@@ -3,18 +3,7 @@
     font-size: 3rem;
 }
 
-.formContainer {
-    max-width: 800px !important;
-    padding: 35px 40px;
-}
-
-.container-title {
+.headers {
     font-family: "Libre Baskerville", serif;
-    text-align: center;
-    padding-bottom: 20px;
-    font-size: 3rem;
-}
-
-.badge-secondary {
-    background-color: "#E3E3E3";
+    font-size: 2rem;
 }

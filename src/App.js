@@ -2,7 +2,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
 import LandingPage from "./views/landingPage";
 import SignupPage from "./views/signupPage";
-import DetailsPage from "./views/detailsPage";
+import HomePage from "./views/homePage";
 
 function App() {
     return (
@@ -18,8 +18,8 @@ function App() {
             <Route path="/signup">
                 <SignupPage />
             </Route>
-            <Route path="/details">
-                <DetailsPage />
+            <Route exact path="/swipeDeck">
+                <HomePage />
             </Route>
         </Switch>
     );
