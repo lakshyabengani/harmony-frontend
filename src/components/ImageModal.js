@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {useState} from "react";
 import { Modal, Row, Col, ListGroup, Button, Container } from "react-bootstrap";
 import { storage } from "../firebase";
@@ -111,9 +112,9 @@ const ImageModal = (props) => {
                       <label for={`file-input${obj.id}`}>
                         {obj.ref!=null?  
                           <img src={obj.src}
-                          width="180" height="240" />:
+                          width="180" height="240" alt=""/>:
                           <img src="https://via.placeholder.com/180x240"
-                          width="180" height="240" />
+                          width="180" height="240" alt=""/>
                         }
                       </label>
                       <input

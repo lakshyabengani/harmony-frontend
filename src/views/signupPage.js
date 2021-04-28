@@ -22,7 +22,7 @@ const SignupPage = () => {
     <div className="page-header">Sign Up</div>
     <SignupForm submitAction={handlePageSumbit} /> 
     { sumbitted && 
-      <Redirect to='/details' />
+      <Redirect to='/swipeDeck' />
     }
     </div>
   )

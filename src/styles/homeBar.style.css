@@ -1,4 +1,4 @@
-.custom-carets .dropdown-toggle:after{
+/* .custom-carets .dropdown-toggle:after{
   font-family: FontAwsome;
   content: '\f142';
   font-weight: 900;
@@ -6,4 +6,21 @@
 
 .custom-carets .dropdown-toggle > span.caret {
   display: none;
+} */
+
+.appbar-title {
+  font-family: "Libre Baskerville", serif;
+  font-size: 2.5rem;
+}
+
+.appbar-subtitle {
+  font-family: "Noto Sans", sans-serif;
+  font-size: 2rem;
+  padding: 10px;
+}
+
+.appbar-options {
+  font-family: "Noto Sans", sans-serif;
+  font-size: 1rem;
+  padding: 10px;
 }
