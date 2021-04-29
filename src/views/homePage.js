@@ -26,7 +26,7 @@ const HomePage = (props) => {
         <div style={{ overflowX: "hidden", overflowY: "hidden" }}>
             <HomeNavBar />
             <Row>
-                <Col xs={9}>
+                <Col xs={9} style={{ height: "88vh" }}>
                     {
                         <TinderCards />
                         //Swpieable Cards to be added here
