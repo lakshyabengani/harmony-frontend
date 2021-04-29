@@ -1,10 +1,12 @@
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Row, Col, Form, InputGroup, Image } from "react-bootstrap";
 import HomeNavBar from "../components/HomeNavBar";
 import { msgList } from "../config";
 import "../styles/sidebar.style.css";
+
+import TinderCards from "../components/TinderCards";
 
 const HomePage = (props) => {
     const [msgData, setMsgData] = useState(msgList);
@@ -26,6 +28,7 @@ const HomePage = (props) => {
             <Row>
                 <Col xs={9}>
                     {
+                        <TinderCards />
                         //Swpieable Cards to be added here
                     }
                 </Col>
