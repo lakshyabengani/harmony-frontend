@@ -14,4 +14,6 @@ hr {
 
 .msg-tile {
     overflow-x: hidden;
+    overflow-y: scroll;
+    height: 100vh;
 }
