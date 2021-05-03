@@ -6,7 +6,7 @@ import HomeNavBar from "../components/HomeNavBar";
 import { msgList } from "../config";
 import "../styles/sidebar.style.css";
 
-import TinderCards from "../components/TinderCards";
+import CarouselCards from "../components/CarouselCards";
 
 const HomePage = (props) => {
     const [msgData, setMsgData] = useState(msgList);
@@ -28,7 +28,7 @@ const HomePage = (props) => {
             <Row>
                 <Col xs={9} style={{ height: "88vh" }}>
                     {
-                        <TinderCards />
+                        <CarouselCards />
                         //Swpieable Cards to be added here
                     }
                 </Col>
