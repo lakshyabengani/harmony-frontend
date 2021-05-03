@@ -131,6 +131,6 @@ export const peoplesList = [
           name: 'Jeff Bezos',
           age: 57,
           url: 'https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTY2NzA3ODE3OTgwMzcyMjYw/jeff-bezos-andrew-harrer_bloomberg-via-getty-images.jpg',
-          info: 'In late 1993, Bezos decided to establish an online bookstore.[44] He left his job at D. E. Shaw and founded Amazon in his garage on July 5, 1994.',
+          info: 'In late 1993, Bezos decided to establish an online bookstore.[44] He left his job at D. E. Shaw and founded Amazon in his garage on July 5, 1994.In late 1993, Bezos decided to establish an online bookstore.[44] He left his job at D. E. Shaw and founded Amazon in his garage on July 5, 1994.In late 1993, Bezos decided to establish an online bookstore.[44] He left his job at D. E. Shaw and founded Amazon in his garage on July 5, 1994.In late 1993, Bezos decided to establish an online bookstore.[44] He left his job at D. E. Shaw and founded Amazon in his garage on July 5, 1994.In late 1993, Bezos decided to establish an online bookstore.[44] He left his job at D. E. Shaw and founded Amazon in his garage on July 5, 1994.In late 1993, Bezos decided to establish an online bookstore.[44] He left his job at D. E. Shaw and founded Amazon in his garage on July 5, 1994.',
      },
 ]

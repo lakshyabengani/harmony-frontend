@@ -26,11 +26,10 @@ const HomePage = (props) => {
         <div style={{ overflowX: "hidden", overflowY: "hidden" }}>
             <HomeNavBar />
             <Row>
-                <Col xs={9} style={{ height: "88vh" }}>
-                    {
+                <Col xs={9}>
+                    <div style={{display:'flex',alignItems:'center',justifyContent:'center' , width:'100%' , height:'100%'}}>    
                         <CarouselCards />
-                        //Swpieable Cards to be added here
-                    }
+                    </div>
                 </Col>
                 <Col
                     xs={3}
