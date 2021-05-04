@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Col,} from "react-bootstrap";
 import HomeNavBar from "../components/HomeNavBar";
 import "../styles/sidebar.style.css";
-import SwipeDeck from "../components/SwipeDeck";
+import SwipeDeck from "../components/swipeDeck";
 import SideBar from "../components/SideBar";
 
 const HomePage = (props) => {
