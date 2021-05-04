@@ -2,7 +2,26 @@ html {
   overflow: scroll;
   overflow-x: hidden;
 }
+
+.card{
+  width: 350px;
+}
+
+.card-text{
+  overflow-y: scroll;
+  height: 150px;
+}
+
+.card-image{
+  height: 350px;
+  width: 350px;
+}
+
 ::-webkit-scrollbar {
   width: 0;  /* Remove scrollbar space */
   background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+.carousel-indicators li{
+  visibility:hidden;
 }
