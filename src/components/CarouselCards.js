@@ -1,37 +1,44 @@
-import React, { useEffect, useState } from "react";
-import {Card, CardDeck, CardGroup} from 'react-bootstrap';
-import {Carousel} from 'react-bootstrap';
+import {Card,Carousel, Image } from 'react-bootstrap';
 import { peoplesList } from "../config";
+import '../styles/cards.style.css'
 
-function CarouselCards() {
+function CarouselCards(props) {
 
-     
      const renderCardList = () => 
      {
           const list = peoplesList.map( (person,idx) => (
                
-               <Card style={{ width: '20rem' }} key={idx}>
-                      
+               <Card className='card' key={idx}>    
                     <Card.Body>
-                    <Carousel>
-                         <Carousel.Item>
-                              <img src={person.url}/>
-                         </Carousel.Item>
-                    </Carousel>
-                         <Card.Title>{person.name}, {person.age}</Card.Title>
-                              <Card.Text>
-                                   {person.info}
-                              </Card.Text>
+                         <Carousel>
+                              {
+                                   person.url.map( imgUrl => 
+                                        <Carousel.Item>
+                                             <Image src={imgUrl} alt="" className='card-image' rounded/>
+                                        </Carousel.Item>)
+                              }
+                         </Carousel>
+                         <br/>
+                         <div className="container card-text" >
+                              <Card.Title>{person.name}, {person.age}</Card.Title>
+                                   <Card.Text>
+                                        {person.info}
+                                   </Card.Text>
+                         </div>
                     </Card.Body>
                </Card>
           )) 
-          return list[3];
+
+          if(props.index < list.length)
+               return list[props.index];
+          else 
+               props.setShow(false);
      }
 
      return (
-          <div>
+          <>
                {renderCardList()}
-          </div>
+          </>
      )
 }
 
