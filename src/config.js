@@ -53,7 +53,7 @@ export const peoplesList = [
           name: 'Shira',
           age: 24,
           url: ['https://1.bp.blogspot.com/-AagECmK1RZE/XjZcTEtBtZI/AAAAAAAANgs/g_VqI4sPSmk3QI0NOzIqWCDeffmhT0oOACLcBGAsYHQ/s1600/Whatsapp%2BDP%2BGirl%2B%25282%2529.png', 'https://eskipaper.com/images/girl-guitar-music-1.jpg'],
-          info: 'Will you be my quaran-tine? It’s like a Valentine, except we can’t leave the house and just eat a lot of snacks.',
+          info: 'Will you be my quaran-tine? It’s like a Valentine, except we can’t leave the house and just eat a lot of snacks !!!',
      },
      {
           name: 'Amara',
