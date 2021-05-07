@@ -89,3 +89,9 @@ export const peoplesList = [
           info: 'In late 1993, Bezos decided to establish an online bookstore.[44] He left his job at D. E. Shaw and founded Amazon in his garage on July 5, 1994.In late 1993, Bezos decided to establish an online bookstore.[44] He left his job at D. E. Shaw and founded Amazon in his garage on July 5, 1994.In late 1993, Bezos decided to establish an online bookstore.[44] He left his job at D. E. Shaw and founded Amazon in his garage on July 5, 1994.In late 1993, Bezos decided to establish an online bookstore.[44] He left his job at D. E. Shaw and founded Amazon in his garage on July 5, 1994.In late 1993, Bezos decided to establish an online bookstore.[44] He left his job at D. E. Shaw and founded Amazon in his garage on July 5, 1994.In late 1993, Bezos decided to establish an online bookstore.[44] He left his job at D. E. Shaw and founded Amazon in his garage on July 5, 1994.',
      },
 ]
+
+export const SPOTIFY_CLIENT_ID = '6b914017b603463abaab61c4ededa0f4'
+
+export const SPOTIFY_REDIRECT_URL = 'http://localhost:3000/signup'
+
+export const SPOTIFY_AUTH_URL = 'https://accounts.spotify.com/authorize'

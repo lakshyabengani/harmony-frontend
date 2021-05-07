@@ -3,9 +3,9 @@ import { faSpotify, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { faUser, faCalendar } from "@fortawesome/free-regular-svg-icons";
 import { faBriefcase, faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, ButtonGroup, Col, Form, InputGroup, ToggleButton } from "react-bootstrap";
-import { sexual_orientations } from "../config";
+import { sexual_orientations, SPOTIFY_AUTH_URL, SPOTIFY_CLIENT_ID, SPOTIFY_REDIRECT_URL } from "../config";
 import DatePicker from 'react-date-picker';
 import Passions from '../components/Passions'
 import { postSettingsApi } from "../api/backend";
@@ -27,17 +27,17 @@ const SignupForm = props => {
   }
 
   const [signupForm,setSignupForm] = useState({
-    name: "",
-    gender: "",
-    bio: "",
-    age_min: 18,
-    age_max: 21,
-    job: "",
-    education: "",
-    interested_gender: "Men",
-    orientaion: "Straight",
-    ytmusic_link: "",
-    spotify_link: "",
+    name: sessionStorage.getItem('name')?? "",
+    gender: sessionStorage.getItem('gender')?? "",
+    bio: sessionStorage.getItem('bio')?? "",
+    age_min: sessionStorage.getItem('age_min')?? 18,
+    age_max: sessionStorage.getItem('age_max')?? 21,
+    job: sessionStorage.getItem('job')?? "",
+    education: sessionStorage.getItem('education')?? "",
+    interested_gender: sessionStorage.getItem('interested_gender')?? "Men",
+    orientaion: sessionStorage.getItem('orientation')??"Straight",
+    ytmusic_link: sessionStorage.getItem('ytmusic_link')??"",
+    spotify_link: sessionStorage.getItem('spotify_link')??"",
   });
 
   const [birth_date, onChange] = useState(new Date());
@@ -45,7 +45,6 @@ const SignupForm = props => {
   const handleChange = (event) => {
     event.preventDefault();
     setSignupForm({...signupForm,[event.target.name] : event.target.value });
-    
   }
 
   const validateForm = () => {
@@ -57,6 +56,9 @@ const SignupForm = props => {
       alert('max age should be greater than min age ');
       setSignupForm({ ...signupForm, age_max: 21 , age_min : 18 });
       return false;
+    }
+    else if(!sessionStorage.getItem('spotify_link')){
+      alert('sign into Spotify');
     }
     else return true;
   }
@@ -89,11 +91,41 @@ const SignupForm = props => {
         ytmusic_link: "",
         spotify_link: "",
       });
+      sessionStorage.clear();
       props.submitAction(true);
     }
     
   }
 
+  const handleSpotify = () => {
+    const data = Object.assign(signupForm,{
+      birth_date : new Date(birth_date),
+    });
+    Object.keys(data).forEach( (key) => {
+      sessionStorage.setItem(key,data[key])
+    });
+    window.location = `${SPOTIFY_AUTH_URL}?client_id=${SPOTIFY_CLIENT_ID}&redirect_uri=${SPOTIFY_REDIRECT_URL}&response_type=code&show_dialog=true`;
+  }
+
+  useEffect(() => {
+    try{
+      const params = window.location.search;
+      if(params && !sessionStorage.getItem('')){
+        const st = params.slice(1).split('&');
+        const a = st[0].split('=');
+        const title = a[0];
+        const value = a[1];
+        if(title === "code")
+          sessionStorage.setItem('spotify_link',value);
+        else{
+          alert('Error');
+          console.log('error',value);
+        }
+      }
+    }catch(err){
+      console.log(err); 
+    }
+  })
 
   return (
     <div style={{ padding: "40px 20px" }}>
@@ -283,7 +315,7 @@ const SignupForm = props => {
         </Form.Row>
         <Form.Row>
           <Col>
-            <Button variant="success" block>
+            <Button variant="success" block onClick={() => handleSpotify()}>
               <FontAwesomeIcon icon={faSpotify} size="2x" pull="left" />
               <span style={{ fontSize: "125%" }}>Spotify</span>
             </Button>
