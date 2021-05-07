@@ -52,7 +52,7 @@ const SwipeDeck = props => {
         <h1>
           No More
           <br/>
-          Matches to Display !!!
+          Possible Matches to Display !!!
         </h1>
       </div>
     }

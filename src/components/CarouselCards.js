@@ -12,9 +12,9 @@ function CarouselCards(props) {
                     <Card.Body>
                          <Carousel>
                               {
-                                   person.url.map( imgUrl => 
+                                   person.url.map( (imgUrl,index) => 
                                         <Carousel.Item>
-                                             <Image src={imgUrl} alt="" className='card-image' rounded/>
+                                             <Image src={imgUrl} alt="" className='card-image' rounded key={index}/>
                                         </Carousel.Item>)
                               }
                          </Carousel>

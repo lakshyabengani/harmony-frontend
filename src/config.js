@@ -89,3 +89,7 @@ export const peoplesList = [
           info: 'If you find yourself trapped inside and looking for conversation, I can promise you I’m more entertaining than Netflix.',
      },
 ]
+
+export const SPOTIFY_REDIRECT_URL = 'http://localhost:3000/signup'
+
+export const SPOTIFY_AUTH_URL = 'https://accounts.spotify.com/authorize'
