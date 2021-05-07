@@ -90,6 +90,4 @@ export const peoplesList = [
      },
 ]
 
-export const SPOTIFY_REDIRECT_URL = 'http://localhost:3000/signup'
-
 export const SPOTIFY_AUTH_URL = 'https://accounts.spotify.com/authorize'
