@@ -65,28 +65,28 @@ export const baseUrl = "https://harmony-backend.herokuapp.com";
 
 export const peoplesList = [
      {
-          name: 'Mark zuckerberg',
-          age: 38,
-          url: ['https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTQyMDA0NDgwMzUzNzcyNjA2/mark-zuckerberg_gettyimages-512304736jpg.jpg'],
-          info: 'The New Yorker noted that by the time Zuckerberg began classes at Harvard in 2002, he had already achieved a "reputation as a programming prodigy.',
+          name: 'Shira',
+          age: 24,
+          url: ['https://1.bp.blogspot.com/-AagECmK1RZE/XjZcTEtBtZI/AAAAAAAANgs/g_VqI4sPSmk3QI0NOzIqWCDeffmhT0oOACLcBGAsYHQ/s1600/Whatsapp%2BDP%2BGirl%2B%25282%2529.png', 'https://eskipaper.com/images/girl-guitar-music-1.jpg'],
+          info: 'Will you be my quaran-tine? It’s like a Valentine, except we can’t leave the house and just eat a lot of snacks.',
      },
      {
-          name: 'Steve Jobs',
-          age: 60,
-          url: ['https://cdn.britannica.com/s:250x250,c:crop/04/171104-050-AEFE3141/Steve-Jobs-iPhone-2010.jpg','https://cdn.britannica.com/s:250x250,c:crop/04/171104-050-AEFE3141/Steve-Jobs-iPhone-2010.jpg'],
-          info: 'Steve Jobs became CEO of Apple in 1997, following his companys acquisition of NeXT. He was largely responsible for helping revive Apple, which had been on the verge of bankruptcy.',
+          name: 'Amara',
+          age: 22,
+          url: ['https://1.bp.blogspot.com/-bsvzoopqo_g/XjZcQWIO3pI/AAAAAAAANgY/0ctGqCReaHINfeXgWln8D8NfflVM58JlQCLcBGAsYHQ/s1600/Whatsapp%2BDP%2BGirl%2B%25282%2529.jpg', 'https://get.wallhere.com/photo/face-sunlight-women-outdoors-women-depth-of-field-long-hair-nature-brunette-grass-photography-profile-morning-hair-in-face-emotion-autumn-flower-plant-girl-beauty-eye-close-up-grass-family-215720.jpg'],
+          info: 'Match with me and I’ll tell you all about how easy it is to wear the same sweats for two weeks straight.',
      },
      {
-          name: 'Elon Musk',
-          age: 40,
-          url: ['https://cdn.britannica.com/s:690x388,c:crop/54/188754-050-A3613741/Elon-Musk-2010.jpg'],
-          info: 'In 2001, Musk became involved with the nonprofit Mars Society. He was inspired by plans to place a growth-chamber for plants on Mars and discussed funding the project himself.',
+          name: 'Giselle',
+          age: 27,
+          url: ['https://1.bp.blogspot.com/-8ovGjB55ofo/Xa_6INpLZgI/AAAAAAAABwo/LAygjAfjPdQ5SOo-FDlJ1_MyHfoyPD-VQCLcBGAsYHQ/s1600/stylish%2Bdp%2Bfor%2Bgirls%2B%25288%2529.jpg', 'https://i1.wp.com/www.hindishayaricollections.com/wp-content/uploads/2019/10/hidden-face-dp-for-girls-43.jpg?resize=600%2C404&ssl=1'],
+          info: 'Actively seeking someone to talk to about what happened to Carole Baskin’s first husband.',
      },
      {
-          name: 'Jeff Bezos',
-          age: 57,
-          url: ['https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTY2NzA3ODE3OTgwMzcyMjYw/jeff-bezos-andrew-harrer_bloomberg-via-getty-images.jpg'],
-          info: 'In late 1993, Bezos decided to establish an online bookstore.[44] He left his job at D. E. Shaw and founded Amazon in his garage on July 5, 1994.In late 1993, Bezos decided to establish an online bookstore.[44] He left his job at D. E. Shaw and founded Amazon in his garage on July 5, 1994.In late 1993, Bezos decided to establish an online bookstore.[44] He left his job at D. E. Shaw and founded Amazon in his garage on July 5, 1994.In late 1993, Bezos decided to establish an online bookstore.[44] He left his job at D. E. Shaw and founded Amazon in his garage on July 5, 1994.In late 1993, Bezos decided to establish an online bookstore.[44] He left his job at D. E. Shaw and founded Amazon in his garage on July 5, 1994.In late 1993, Bezos decided to establish an online bookstore.[44] He left his job at D. E. Shaw and founded Amazon in his garage on July 5, 1994.',
+          name: 'Eliana',
+          age: 25,
+          url: ['https://1.bp.blogspot.com/-Mntqhgb-Q8E/XUQrM6w8d3I/AAAAAAAAA5E/EEjhOwVEp0Aoxbw8XbXH104Ab1ATHmXQQCLcBGAs/s1600/cool-girls-dp-for-face-book.jpg', 'https://i.pinimg.com/originals/61/f7/3b/61f73bc80544d75ea2a2d983adb6270c.jpg', 'https://thypix.com/wp-content/uploads/beautiful-profile-picture-hidden-face-girl-23.jpg'],
+          info: 'If you find yourself trapped inside and looking for conversation, I can promise you I’m more entertaining than Netflix.',
      },
 ]
 
