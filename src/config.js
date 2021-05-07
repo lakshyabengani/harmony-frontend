@@ -90,8 +90,6 @@ export const peoplesList = [
      },
 ]
 
-export const SPOTIFY_CLIENT_ID = '6b914017b603463abaab61c4ededa0f4'
-
 export const SPOTIFY_REDIRECT_URL = 'http://localhost:3000/signup'
 
 export const SPOTIFY_AUTH_URL = 'https://accounts.spotify.com/authorize'

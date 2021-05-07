@@ -5,12 +5,12 @@ import { faBriefcase, faGraduationCap } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Button, ButtonGroup, Col, Form, InputGroup, ToggleButton } from "react-bootstrap";
-import { sexual_orientations, SPOTIFY_AUTH_URL, SPOTIFY_CLIENT_ID, SPOTIFY_REDIRECT_URL } from "../config";
+import { sexual_orientations, SPOTIFY_AUTH_URL, SPOTIFY_REDIRECT_URL } from "../config";
 import DatePicker from 'react-date-picker';
 import Passions from '../components/Passions'
 import { postSettingsApi } from "../api/backend";
 import Images from "./Images";
-
+const SPOTIFY_CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID ?? ' ';
 
 const SignupForm = props => {
 
@@ -108,6 +108,7 @@ const SignupForm = props => {
   }
 
   useEffect(() => {
+    console.log(SPOTIFY_CLIENT_ID);
     try{
       const params = window.location.search;
       if(params && !sessionStorage.getItem('')){
