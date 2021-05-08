@@ -14,31 +14,41 @@ const Login = (props) => {
         setLoginForm({ ...loginForm, [event.target.name]: event.target.value });
     };
 
+    const postSubmitAction = (path,error) => {
+        setLoginForm({email: "" , password: "" , retypePassword: ""});
+        props.onHide(false);
+        if(error) alert(error);
+        else props.changePath(path)
+    } 
+
     const handleSubmit = () => {
         if (loginForm.username.length > 0 && loginForm.password.length > 0) {
-            let submitted = false;
             if(props.modalName === action.SIGNUP && loginForm.password !== loginForm.retypePassword){
                 alert("Passwords do not match");
                 setLoginForm({ ...loginForm, retypePassword: "" });
                 return;
             }
             if(props.modalName === action.SIGNUP ){
-                signupApi(loginForm.username,loginForm.password).then( (res) => console.log(res) ).catch(err => console.log(err));
-                submitted = true;
+                signupApi(loginForm.username,loginForm.password)
+                    .then( (res) => {
+                        console.log(res);
+                        postSubmitAction('/signup',res.error);
+                    })
+                    .catch(errObj => {
+                        console.log(errObj);
+                        postSubmitAction('/signup',errObj.error);
+                    });
             }
             else{
-                loginApi(loginForm.username,loginForm.password).then( (res) => console.log(res) ).catch(err => console.log(err));
-                submitted = true;
-            }
-            if(submitted){
-                alert("Form submitted");
-                setLoginForm({username: "" , password: "" , retypePassword: ""});
-                props.onHide(false);
-                if(props.modalName === action.SIGNUP) props.changePath("/signup");
-                else props.changePath("/home");
-            }
-            else{
-                alert("Error in form submission ");
+                loginApi(loginForm.username,loginForm.password)
+                .then( (res) => {
+                    console.log(res);
+                    postSubmitAction('/swipeDeck',res.error);
+                })
+                .catch(errObj => {
+                    console.log(errObj);
+                    postSubmitAction('/swipeDeck',errObj.error);
+                });
             }
         }
         else{

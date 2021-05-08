@@ -10,11 +10,11 @@ function CarouselCards(props) {
                
                <Card className='card' key={idx}>    
                     <Card.Body>
-                         <Carousel>
+                         <Carousel nextIcon="" prevIcon="">
                               {
                                    person.url.map( (imgUrl,index) => 
-                                        <Carousel.Item>
-                                             <Image src={imgUrl} alt="" className='card-image' rounded key={index}/>
+                                        <Carousel.Item key={index}>
+                                             <Image src={imgUrl} alt="" className='card-image' rounded />
                                         </Carousel.Item>)
                               }
                          </Carousel>
