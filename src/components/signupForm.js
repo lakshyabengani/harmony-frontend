@@ -8,7 +8,7 @@ import { Button, ButtonGroup, Col, Form, InputGroup, ToggleButton } from "react-
 import { sexual_orientations, SPOTIFY_AUTH_URL} from "../config";
 import DatePicker from 'react-date-picker';
 import Passions from '../components/Passions'
-import { postSettingsApi } from "../api/backend";
+import { getSettingsApi, postSettingsApi } from "../api/backend";
 import Images from "./Images";
 
 const SPOTIFY_CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID ;
@@ -29,18 +29,36 @@ const SignupForm = props => {
   }
 
   const [signupForm,setSignupForm] = useState({
-    name: sessionStorage.getItem('name')?? "",
-    gender: sessionStorage.getItem('gender')?? "",
-    bio: sessionStorage.getItem('bio')?? "",
-    age_min: sessionStorage.getItem('age_min')?? 18,
-    age_max: sessionStorage.getItem('age_max')?? 21,
-    job: sessionStorage.getItem('job')?? "",
-    education: sessionStorage.getItem('education')?? "",
-    interested_gender: sessionStorage.getItem('interested_gender')?? "Men",
-    orientaion: sessionStorage.getItem('orientation')??"Straight",
-    ytmusic_link: sessionStorage.getItem('ytmusic_link')??"",
-    spotify_link: sessionStorage.getItem('spotify_link')??"",
+    name: '',
+    gender: '',
+    bio: '',
+    age_min: 18,
+    age_max: 21,
+    job: '',
+    education: '',
+    interested_gender: 'Men',
+    sexual_orientation_name: '',
+    ytmusic_link: "",
+    spotify_link: '',
+    user_passions: [],
   });
+
+  const addPassion = (new_passion_id) => {
+    const n_list = signupForm.user_passions;
+    n_list.push(new_passion_id);
+    setSignupForm({...signupForm,user_passions : n_list});
+  }
+
+  const removePassion = (deleted_passion_id) => {
+    const new_list = signupForm.user_passions.filter(passion_id  => passion_id !== deleted_passion_id)
+    setSignupForm({...signupForm,user_passions : new_list});
+  }
+
+
+  const [fixedLists,setFixedLists] = useState({
+    sexual_orientation_list: [] ,
+    passion_list: [] ,
+  })
 
   const [birth_date, onChange] = useState(new Date());
 
@@ -59,7 +77,7 @@ const SignupForm = props => {
       setSignupForm({ ...signupForm, age_max: 21 , age_min : 18 });
       return false;
     }
-    else if(!sessionStorage.getItem('spotify_link')){
+    else if(!signupForm.spotify_link){
       alert('sign into Spotify');
     }
     else return true;
@@ -68,33 +86,32 @@ const SignupForm = props => {
   const handleSubmit = (event) => {
     if(validateForm()){
 
+      const desired_list = fixedLists.sexual_orientation_list.filter( orientation => orientation.name === signupForm.sexual_orientation_name);
+      const orientation_id = desired_list[0].id;
       const temp = Object.assign({},signupForm);
       const data = Object.assign(temp,{
         birth_date : new Date(birth_date),
+        sexual_orientation_id : orientation_id,
+        passions : signupForm.user_passions,
       });
-      
+      data['age_max'] = parseInt(data['age_max']);
+      data['age_min'] = parseInt(data['age_min']);
+      delete data['user_passions'];
+      delete data['sexual_orientation_name'];
+      delete data['ytmusic_link'];
       console.log(data);
       
-      // postSettingsApi(data).then(res => console.log(res)).catch(err => console.log(err));
-
-      alert("Form Submitted");
-      
-      setSignupForm({
-        name: "",
-        gender: "",
-        bio: "",
-        birthday: "",
-        age_min: 18,
-        age_max: 21,
-        job: "",
-        education: "",
-        interested_gender: "Men",
-        orientaion: "Straight",
-        ytmusic_link: "",
-        spotify_link: "",
-      });
-      sessionStorage.clear();
-      props.submitAction(true);
+      postSettingsApi(data)
+        .then(res => {
+          console.log(res);
+          alert('Form Submitted');
+          sessionStorage.clear();
+          props.submitAction(true);
+        })
+        .catch(err => {
+          console.log(err);
+          alert('error in form submission');
+        });
     }
     
   }
@@ -104,16 +121,50 @@ const SignupForm = props => {
       birth_date : new Date(birth_date),
     });
     Object.keys(data).forEach( (key) => {
-      sessionStorage.setItem(key,data[key])
+      if(key === 'birth_date')
+        sessionStorage.setItem('birth_date',birth_date.toString());
+      else if(key === 'user_passions') 
+        sessionStorage.setItem(key,JSON.stringify(data[key]));
+      else 
+        sessionStorage.setItem(key,data[key])
     });
     window.location = `${SPOTIFY_AUTH_URL}?client_id=${SPOTIFY_CLIENT_ID}&redirect_uri=${SPOTIFY_REDIRECT_URL}&response_type=code&show_dialog=true`;
   }
 
+  //To Do : Set the initial Values of the state after a GET call on the setting API
+
+  const setFormData = (inputData) =>{
+
+    setSignupForm({
+      name : sessionStorage.getItem('name') ?? (inputData.name ?? ""),
+      age_max : sessionStorage.getItem('age_max') ? parseInt(sessionStorage.getItem('age_max')) : (inputData.age_max ?? 21 ),
+      age_min : sessionStorage.getItem('age_min') ? parseInt(sessionStorage.getItem('age_min')) : ( inputData.age_min ?? 18 ),
+      gender : sessionStorage.getItem('gender') ?? (inputData.gender ?? "")  ,
+      bio : sessionStorage.getItem('bio') ?? ( inputData.bio ?? ""),
+      interested_gender : sessionStorage.getItem('interested_gender') ?? ( inputData.interested_gender ?? 'Men' ),
+      job : sessionStorage.getItem('job') ?? ( inputData.job ?? "" ),
+      spotify_link : sessionStorage.getItem('spotify_link') ?? (inputData.spotify_link ?? ""),
+      ytmusic_link : sessionStorage.getItem('ytmusic_link') ?? ( inputData.ytmusic_link ?? ""),
+      sexual_orientation_name : sessionStorage.getItem('sexual_orientation_name') ?? (inputData.sexual_orientation_name ?? inputData.sexual_orientation_list[0].name ),
+      education : sessionStorage.getItem('education') ?? ( inputData.education ?? ''),
+      user_passions : sessionStorage.getItem('user_passions') ?  JSON.parse(sessionStorage.getItem('user_passions')) : inputData.user_passions.map( passions => passions.passion_id) ,
+    });
+
+    onChange(sessionStorage.getItem('birth_date') ? new Date(sessionStorage.getItem('birth_date')) : (inputData.birth_date ? new Date(inputData.birth_date) : new Date()));
+
+    setFixedLists({
+      sexual_orientation_list : inputData.sexual_orientation_list,
+      passion_list : inputData.passion_list,
+    });
+
+  }
+
   useEffect(() => {
-    console.log(SPOTIFY_CLIENT_ID);
     try{
+  
+      // check if the spotify access code is present or not 
       const params = window.location.search;
-      if(params && !sessionStorage.getItem('')){
+      if(params){
         const st = params.slice(1).split('&');
         const a = st[0].split('=');
         const title = a[0];
@@ -125,10 +176,21 @@ const SignupForm = props => {
           console.log('error',value);
         }
       }
+
+      // make an api call to get all the settings of the user and store it in session storage.
+      getSettingsApi()
+        .then((obj) => {
+          console.log(obj);
+          setFormData(obj.data.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+
     }catch(err){
       console.log(err); 
     }
-  })
+  },[])
 
   return (
     <div style={{ padding: "40px 20px" }}>
@@ -214,18 +276,18 @@ const SignupForm = props => {
                   inline
                   name="gender"
                   type="radio"
-                  label="Male"
-                  id="male"
-                  value="male"
+                  label="Men"
+                  id="men"
+                  value="Men"
                   className="mr-2"
                 />
                 <Form.Check
                   inline
                   name="gender"
                   type="radio"
-                  label="Female"
-                  value="female"
-                  id="female"
+                  label="Women"
+                  value="Women"
+                  id="women"
                 />
               </div>
             </Form.Group>
@@ -293,12 +355,12 @@ const SignupForm = props => {
             <Form.Label>Sexual Orientation</Form.Label>
             <Form.Control
               as="select"
-              name="orientation"
-              defaultValue={signupForm.orientaion}
+              name="sexual_orientation_name"
+              defaultValue={sessionStorage.getItem('sexual_orientation_name') ?? signupForm.sexual_orientation_name}
               onChange={handleChange}
               custom>
-              {sexual_orientations.map((orientation, idx) => (
-                <option key={idx}>{orientation}</option>
+              {fixedLists.sexual_orientation_list.map((orientation) => (
+                <option key={orientation.id}>{orientation.name}</option>
               ))}
             </Form.Control>
           </Form.Group>
@@ -307,8 +369,7 @@ const SignupForm = props => {
             <Form.Control
               as="select"
               name="interested_gender"
-              defaultValue={signupForm.interested_gender}
-
+              defaultValue={sessionStorage.getItem('interested_gender') ?? signupForm.interested_gender}
               onChange={handleChange}
               custom>
               <option>Men</option>
@@ -336,6 +397,10 @@ const SignupForm = props => {
             <Passions
               modalShow={passionModalShow}
               toggelModalShow={toggelModalShow}
+              addPassion = {addPassion}
+              removePassion = {removePassion}
+              user_passions = {signupForm.user_passions}
+              passion_list = {fixedLists.passion_list}
             />
           </Col>
           
