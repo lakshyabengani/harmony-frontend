@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Form,Modal ,Row ,Col, ListGroup, InputGroup,} from "react-bootstrap";
-import { passions } from "../config";
 
 const PassionModal = (props) => {
 
@@ -14,23 +13,29 @@ const PassionModal = (props) => {
 
   const renderOptions = () => {
 
+    // this list will consist of selected passion id only 
     const selected = props.selectedList;
-    const defaultList = passions.filter( word => word.toLowerCase().includes(searchText.toLowerCase())); 
+
+    // this list will contain a lists of all passions including name and id
+    const passions = props.passion_list;
+
+    // searched passions
+    const defaultList = passions.filter( word => word.passion_name.toLowerCase().includes(searchText.toLowerCase())); 
+    
     let options = null;
     if(defaultList.length === 0){
-      console.log("here")
       options = <ListGroup.Item variant="light">No Items to Match your Choice :( </ListGroup.Item>
     } 
     else{
       options = defaultList.map( (ele,idx) => 
       <ListGroup.Item 
         action 
-        active={selected.includes(ele)} 
+        active={selected.includes(ele.passion_id)} 
         variant="primary"
-        onClick={() =>  selected.includes(ele) ? props.removeFromList(ele) : props.addToList(ele) } 
+        onClick={() =>  selected.includes(ele.passion_id) ? props.removeFromList(ele.passion_id) : props.addToList(ele.passion_id) } 
         key={idx}
       >
-        {ele}
+        {ele.passion_name}
       </ListGroup.Item>);
     }
     return <ListGroup>{options}</ListGroup>

@@ -1,7 +1,6 @@
 import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
 import { Badge , Button} from "react-bootstrap";
 import PassionModal from "./PassionModal";
 import "../styles/passion.style.css"
@@ -10,22 +9,13 @@ import "../styles/passion.style.css"
 
 const Passions = (props) => {
   
-  const [passionsList,setPassionsList] = useState([]);
-
-  const addPassion = (new_passion) => {
-    setPassionsList([...passionsList,new_passion]);
-  }
-
-  const removePassion = (deleted_passion) => {
-    setPassionsList(passionsList.filter(passion => passion !== deleted_passion));
-  }
-
   const renderPassionList = () => {
+    const passionsList = props.passion_list.filter(passion => props.user_passions.includes(passion.passion_id));
     const list = passionsList.map( (passions,idx) => 
     <span key={idx} style={{fontSize: '1.2rem', padding:'5px'}}>
       <Badge className="passionBadge" pill >
-        <span className="m-1">{passions}</span>
-        <FontAwesomeIcon icon={faTimesCircle} onClick={ () => removePassion(passions)}/>
+        <span className="m-1">{passions.passion_name}</span>
+        <FontAwesomeIcon icon={faTimesCircle} onClick={ () => props.removePassion(passions.passion_id)}/>
       </Badge> 
       </span>
     ) 
@@ -44,9 +34,10 @@ const Passions = (props) => {
     <PassionModal 
       show={props.modalShow} 
       onHide={props.toggelModalShow} 
-      selectedList={passionsList} 
-      addToList={addPassion} 
-      removeFromList={removePassion}
+      selectedList={props.user_passions} 
+      addToList={props.addPassion} 
+      removeFromList={props.removePassion}
+      passion_list = {props.passion_list}
     />
     </div>
   )

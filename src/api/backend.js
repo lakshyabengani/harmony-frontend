@@ -33,12 +33,7 @@ export const signupApi = async(user_email,user_password) => {
 
         const res = await axios(config);
         
-        console.log(res);
-        
-        console.log(res.data);
-
         let returnObject = null;
-
 
     // The try block will execute properly only for status = 200 and for all other status codes like (400,401,500) catch block will work
         const token = res.data.token;
@@ -59,6 +54,7 @@ export const signupApi = async(user_email,user_password) => {
     }
 }
 
+// Issue : returns 500 on login till now 
 export const loginApi = async(user_email,user_password) => {
     try{
 
@@ -68,9 +64,7 @@ export const loginApi = async(user_email,user_password) => {
                 password: user_password
             }
         });
-        
-        console.log(res);
-        
+
         let returnObject = null;
 
         const token = res.data.token;
@@ -90,6 +84,7 @@ export const loginApi = async(user_email,user_password) => {
     }
 }
 
+// to Do : postSettingsApi 
 export const postSettingsApi = async( settings_form ) => {
     try{
         
@@ -100,6 +95,7 @@ export const postSettingsApi = async( settings_form ) => {
             url: baseUrl+'/settings',
             headers: { 
                 'x-access-tokens': token,
+                'Content-Type': 'application/json'
             },
             data : data
         }
@@ -107,11 +103,42 @@ export const postSettingsApi = async( settings_form ) => {
         const res = await axios(config);
 
         console.log(res);
-        return res;
+        
+        const returnObject = generateResponse(res.status,res.data,null)
+        return returnObject;
 
     }catch(err){
 
-        console.log(err);
-        throw err;
+        console.log(err.response);
+        const res = err.response;
+        const errorObject = generateResponse(res.status,null,res.data.error);
+        throw errorObject;
+    }
+}
+
+export const getSettingsApi = async() => {
+    try{
+        
+        const token = localStorage.getItem('JWTtoken');
+        const config = {
+            method: 'get',
+            url: baseUrl+'/settings',
+            headers: { 
+                'x-access-tokens': token,
+            },
+        }
+
+        const res = await axios(config);
+
+        console.log(res);
+        const returnObject = generateResponse(res.status,res.data,null)
+        return returnObject;
+
+    }catch(err){
+
+        console.log(err.response);
+        const res = err.response;
+        const errorObject = generateResponse(res.status,null,res.data.error);
+        throw errorObject;
     }
 }
