@@ -79,21 +79,10 @@ const SignupForm = props => {
 
       alert("Form Submitted");
       
-      setSignupForm({
-        name: "",
-        gender: "",
-        bio: "",
-        birthday: "",
-        age_min: 18,
-        age_max: 21,
-        job: "",
-        education: "",
-        interested_gender: "Men",
-        orientaion: "Straight",
-        ytmusic_link: "",
-        spotify_link: "",
-      });
+ 
       sessionStorage.clear();
+
+      // on successful form submission
       props.submitAction(true);
     }
     
