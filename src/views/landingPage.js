@@ -22,23 +22,21 @@ function LandingPage() {
     }
 
     return (
-        <div className="App">
-            <div className="landing-page">
-                <Appbar
-                    loginModalCallback={loginModalCallback}
-                    changeModalName={changeModalName}
-                />
+        <div className="landing-page">
+            <Appbar
+                loginModalCallback={loginModalCallback}
+                changeModalName={changeModalName}
+            />
 
-                {/* TODO: Routing stuffs */}
-                <Home
-                    loginModalShow={loginModalShow}
-                    modalName={modalName}
-                    loginModalCallback={loginModalCallback}
-                    changeModalName={changeModalName}
-                    changePath={changeRedirectPath}
-                />
-                {redirectPath ? <Redirect to={redirectPath} /> : null}
-            </div>
+            {/* TODO: Routing stuffs */}
+            <Home
+                loginModalShow={loginModalShow}
+                modalName={modalName}
+                loginModalCallback={loginModalCallback}
+                changeModalName={changeModalName}
+                changePath={changeRedirectPath}
+            />
+            {redirectPath ? <Redirect to={redirectPath} /> : null}
         </div>
     );
 }
