@@ -7,20 +7,9 @@ import HomePage from "./views/homePage";
 function App() {
     return (
         <Switch>
-            <Route exact path="/home">
-                <div className="App">
-                    <LandingPage />
-                </div>
-            </Route>
-            <Route exact path="/">
-                <Redirect to="/home" />
-            </Route>
-            <Route path="/signup">
-                <SignupPage />
-            </Route>
-            <Route exact path="/swipeDeck">
-                <HomePage />
-            </Route>
+            <Route exact path="/home" component={LandingPage} />
+            <Route path="/settings" component={SignupPage} exact />
+            <Route exact path="/swipeDeck" component={HomePage} />
         </Switch>
     );
 }
