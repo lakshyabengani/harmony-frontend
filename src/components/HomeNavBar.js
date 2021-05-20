@@ -1,13 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {
-    Navbar,
-    Nav,
-    NavItem,
-    Dropdown,
-    NavLink,
-    NavDropdown,
-    Image,
-} from "react-bootstrap";
+import { Navbar, Nav, NavItem, Dropdown, Image } from "react-bootstrap";
 import "../styles/homeBar.style.css";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,9 +9,16 @@ import {
     faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { singOut } from "../store/actions/AuthActions";
 
 const HomeNavBar = (props) => {
     const history = useHistory();
+    const dispatch = useDispatch();
+
+    const logoutFn = () => {
+        dispatch(singOut());
+    };
 
     const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
         <a
@@ -77,7 +76,12 @@ const HomeNavBar = (props) => {
                                 <FontAwesomeIcon icon={faCog} />
                                 Settings
                             </Dropdown.Item>
-                            <Dropdown.Item className="appbar-options">
+                            <Dropdown.Item
+                                className="appbar-options"
+                                onClick={() => {
+                                    logoutFn();
+                                }}
+                            >
                                 <FontAwesomeIcon icon={faSignOutAlt} />
                                 Logout
                             </Dropdown.Item>

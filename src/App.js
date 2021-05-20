@@ -1,4 +1,4 @@
-import { Route, Switch, BrowserRouter } from "react-router-dom";
+import { Route, Switch, BrowserRouter, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./App.css";
 import LandingPage from "./views/landingPage";
@@ -10,19 +10,26 @@ function App() {
 
     return (
         <BrowserRouter>
-            <Switch>
-                <Route exact path="/">
-                    <div className="App">
-                        <LandingPage />
-                    </div>
-                </Route>
-                <Route path="/settings">
-                    <SignupPage />
-                </Route>
-                <Route exact path="/swipeDeck">
-                    <HomePage />
-                </Route>
-            </Switch>
+            {auth ? (
+                <Switch>
+                    <Route path="/settings">
+                        <SignupPage />
+                    </Route>
+                    <Route exact path="/swipeDeck">
+                        <HomePage />
+                    </Route>
+                    <Redirect to="/swipedeck" exact />
+                </Switch>
+            ) : (
+                <Switch>
+                    <Route exact path="/signin">
+                        <div className="App">
+                            <LandingPage />
+                        </div>
+                    </Route>
+                    <Redirect to="/signin" exact />
+                </Switch>
+            )}
         </BrowserRouter>
     );
 }

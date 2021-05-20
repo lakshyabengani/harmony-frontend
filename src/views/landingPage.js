@@ -27,8 +27,6 @@ function LandingPage() {
                 loginModalCallback={loginModalCallback}
                 changeModalName={changeModalName}
             />
-
-            {/* TODO: Routing stuffs */}
             <Home
                 loginModalShow={loginModalShow}
                 modalName={modalName}

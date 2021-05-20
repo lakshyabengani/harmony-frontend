@@ -3,55 +3,69 @@ import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import "../styles/Login.style.css";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {action} from '../config'
+import { action } from "../config";
 import { loginApi, signupApi } from "../api/backend";
+import { useDispatch } from "react-redux";
+import { signIn } from "../store/actions/AuthActions";
 
 const Login = (props) => {
-    const [loginForm, setLoginForm] = useState({ username: "", password: "" , retypePassword: ""});
+    const [loginForm, setLoginForm] = useState({
+        username: "",
+        password: "",
+        retypePassword: "",
+    });
+    const dispatch = useDispatch();
+
+    const loginFn = () => {
+        // This is the fn that changes state to expose the logged in pages to user
+        dispatch(signIn());
+    };
 
     const handleChange = (event) => {
         event.preventDefault();
         setLoginForm({ ...loginForm, [event.target.name]: event.target.value });
     };
 
-    const postSubmitAction = (path,error) => {
-        setLoginForm({email: "" , password: "" , retypePassword: ""});
+    const postSubmitAction = (path, error) => {
+        setLoginForm({ email: "", password: "", retypePassword: "" });
         props.onHide(false);
-        if(error) alert(error);
-        else props.changePath(path)
-    } 
+        if (error) alert(error);
+        else props.changePath(path);
+    };
 
     const handleSubmit = () => {
+        loginFn();
         if (loginForm.username.length > 0 && loginForm.password.length > 0) {
-            if(props.modalName === action.SIGNUP && loginForm.password !== loginForm.retypePassword){
+            if (
+                props.modalName === action.SIGNUP &&
+                loginForm.password !== loginForm.retypePassword
+            ) {
                 alert("Passwords do not match");
                 setLoginForm({ ...loginForm, retypePassword: "" });
                 return;
             }
-            if(props.modalName === action.SIGNUP ){
-                signupApi(loginForm.username,loginForm.password)
-                    .then( (res) => {
+            if (props.modalName === action.SIGNUP) {
+                signupApi(loginForm.username, loginForm.password)
+                    .then((res) => {
                         console.log(res);
-                        postSubmitAction('/signup',res.error);
+                        postSubmitAction("/signup", res.error);
                     })
-                    .catch(errObj => {
+                    .catch((errObj) => {
                         console.log(errObj);
-                        postSubmitAction('/signup',errObj.error);
+                        postSubmitAction("/signup", errObj.error);
+                    });
+            } else {
+                loginApi(loginForm.username, loginForm.password)
+                    .then((res) => {
+                        console.log(res);
+                        postSubmitAction("/swipeDeck", res.error);
+                    })
+                    .catch((errObj) => {
+                        console.log(errObj);
+                        postSubmitAction("/swipeDeck", errObj.error);
                     });
             }
-            else{
-                loginApi(loginForm.username,loginForm.password)
-                .then( (res) => {
-                    console.log(res);
-                    postSubmitAction('/swipeDeck',res.error);
-                })
-                .catch(errObj => {
-                    console.log(errObj);
-                    postSubmitAction('/swipeDeck',errObj.error);
-                });
-            }
-        }
-        else{
+        } else {
             alert("Both username and password needs to be filled");
         }
     };
@@ -97,7 +111,7 @@ const Login = (props) => {
                                         onKeyPress={handleSubmitKeypress}
                                     />
                                 </Form.Group>
-                                {props.modalName === action.SIGNUP &&
+                                {props.modalName === action.SIGNUP && (
                                     <Form.Group controlId="retypePassword">
                                         <Form.Control
                                             type="text"
@@ -108,7 +122,7 @@ const Login = (props) => {
                                             onKeyPress={handleSubmitKeypress}
                                         />
                                     </Form.Group>
-                                }
+                                )}
                             </Form>
                         </Col>
                     </Row>
