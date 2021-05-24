@@ -7,7 +7,8 @@ import HomePage from "./views/homePage";
 
 function App() {
     const auth = useSelector((state) => state.auth.isLoggedIn);
-
+    const ftu = useSelector((state) => state.auth.ftu);
+    console.log(ftu +" " +auth);
     return (
         <BrowserRouter>
             {auth ? (
@@ -15,19 +16,19 @@ function App() {
                     <Route path="/settings">
                         <SignupPage />
                     </Route>
-                    <Route exact path="/swipeDeck">
+                    <Route exact path="/home">
                         <HomePage />
                     </Route>
-                    <Redirect to="/swipedeck" exact />
+                    {ftu ? <Redirect to="/settings" exact /> : <Redirect to="/home" exact />}
                 </Switch>
             ) : (
                 <Switch>
-                    <Route exact path="/signin">
+                    <Route exact path="/landing">
                         <div className="App">
                             <LandingPage />
                         </div>
                     </Route>
-                    <Redirect to="/signin" exact />
+                    <Redirect to="/landing" exact />
                 </Switch>
             )}
         </BrowserRouter>

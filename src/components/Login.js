@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { action } from "../config";
 import { loginApi, signupApi } from "../api/backend";
 import { useDispatch } from "react-redux";
-import { signIn } from "../store/actions/AuthActions";
+import { signIn , signUp} from "../store/actions/AuthActions";
 
 const Login = (props) => {
     const [loginForm, setLoginForm] = useState({
@@ -16,10 +16,10 @@ const Login = (props) => {
     });
     const dispatch = useDispatch();
 
-    const loginFn = () => {
-        // This is the fn that changes state to expose the logged in pages to user
-        dispatch(signIn());
-    };
+    // const loginFn = () => {
+    //     // This is the fn that changes state to expose the logged in pages to user
+    //     dispatch(signIn());
+    // };
 
     const handleChange = (event) => {
         event.preventDefault();
@@ -30,11 +30,11 @@ const Login = (props) => {
         setLoginForm({ email: "", password: "", retypePassword: "" });
         props.onHide(false);
         if (error) alert(error);
-        else props.changePath(path);
+        // else props.changePath(path);
     };
 
     const handleSubmit = () => {
-        loginFn();
+        // loginFn();
         if (loginForm.username.length > 0 && loginForm.password.length > 0) {
             if (
                 props.modalName === action.SIGNUP &&
@@ -48,21 +48,23 @@ const Login = (props) => {
                 signupApi(loginForm.username, loginForm.password)
                     .then((res) => {
                         console.log(res);
-                        postSubmitAction("/signup", res.error);
+                        postSubmitAction("/settings", res.error);
+                        dispatch(signUp());
                     })
                     .catch((errObj) => {
                         console.log(errObj);
-                        postSubmitAction("/signup", errObj.error);
+                        postSubmitAction("/settings", errObj.error);
                     });
             } else {
                 loginApi(loginForm.username, loginForm.password)
                     .then((res) => {
                         console.log(res);
-                        postSubmitAction("/swipeDeck", res.error);
+                        postSubmitAction("/home", res.error);
+                        dispatch(signIn());
                     })
                     .catch((errObj) => {
                         console.log(errObj);
-                        postSubmitAction("/swipeDeck", errObj.error);
+                        postSubmitAction("/home", errObj.error);
                     });
             }
         } else {
