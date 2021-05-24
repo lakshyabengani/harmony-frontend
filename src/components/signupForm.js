@@ -128,7 +128,7 @@ const SignupForm = props => {
       else 
         sessionStorage.setItem(key,data[key])
     });
-    window.location = `${SPOTIFY_AUTH_URL}?client_id=${SPOTIFY_CLIENT_ID}&redirect_uri=${SPOTIFY_REDIRECT_URL}&response_type=code&show_dialog=true`;
+    window.location = `${SPOTIFY_AUTH_URL}?client_id=${SPOTIFY_CLIENT_ID}&redirect_uri=${SPOTIFY_REDIRECT_URL}&scope=user-top-read&response_type=token&show_dialog=true`;
   }
 
   //To Do : Set the initial Values of the state after a GET call on the setting API

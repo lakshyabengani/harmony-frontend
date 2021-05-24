@@ -14,11 +14,10 @@ const Login = (props) => {
         setLoginForm({ ...loginForm, [event.target.name]: event.target.value });
     };
 
-    const postSubmitAction = (path,error) => {
+    const postSubmitAction = (path,status) => {
         setLoginForm({email: "" , password: "" , retypePassword: ""});
         props.onHide(false);
-        if(error) alert(error);
-        else props.changePath(path)
+        if(status === 200) props.changePath(path)
     } 
 
     const handleSubmit = () => {
@@ -32,22 +31,22 @@ const Login = (props) => {
                 signupApi(loginForm.username,loginForm.password)
                     .then( (res) => {
                         console.log(res);
-                        postSubmitAction('/signup',res.error);
+                        postSubmitAction('/signup',res.status);
                     })
                     .catch(errObj => {
                         console.log(errObj);
-                        postSubmitAction('/signup',errObj.error);
+                        postSubmitAction('/signup',errObj.status);
                     });
             }
             else{
                 loginApi(loginForm.username,loginForm.password)
                 .then( (res) => {
                     console.log(res);
-                    postSubmitAction('/swipeDeck',res.error);
+                    postSubmitAction('/swipeDeck',res.status);
                 })
                 .catch(errObj => {
                     console.log(errObj);
-                    postSubmitAction('/swipeDeck',errObj.error);
+                    postSubmitAction('/swipeDeck',errObj.status);
                 });
             }
         }
