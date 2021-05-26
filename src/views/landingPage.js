@@ -20,7 +20,6 @@ function LandingPage() {
     function changeRedirectPath(path) {
         setRedirectPath(path);
     }
-
     return (
         <div className="landing-page">
             <Appbar

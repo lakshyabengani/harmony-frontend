@@ -7,27 +7,35 @@ import HomePage from "./views/homePage";
 
 function App() {
     const auth = useSelector((state) => state.auth.isLoggedIn);
-
+    const ftu = useSelector((state) => state.auth.ftu);
+    console.log(ftu +" " +auth);
     return (
         <BrowserRouter>
             {auth ? (
                 <Switch>
-                    <Route path="/settings">
-                        <SignupPage />
-                    </Route>
-                    <Route exact path="/swipeDeck">
+                    <Route path="/settings" render={() => <SignupPage />}/>
+                    <Route exact path="/home">
                         <HomePage />
                     </Route>
-                    <Redirect to="/swipedeck" exact />
+                    {ftu ? <Redirect to="/settings" exact /> : <Redirect to="/home" exact />}
+                    <Route exact path='/landing'>
+                        <Redirect to='/home' />
+                    </Route>
                 </Switch>
             ) : (
                 <Switch>
-                    <Route exact path="/signin">
+                    <Route exact path="/">
+                        <Redirect to='/landing' exact />
+                    </Route>
+                    <Route exact path="/landing">
                         <div className="App">
                             <LandingPage />
                         </div>
                     </Route>
-                    <Redirect to="/signin" exact />
+                    <Route exact path='/settings'>
+                        <Redirect to="/landing" exact />                        
+                    </Route>
+                    <Redirect to="/landing" exact />
                 </Switch>
             )}
         </BrowserRouter>

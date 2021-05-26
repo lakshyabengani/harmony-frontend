@@ -8,7 +8,7 @@ import {
     faEllipsisV,
     faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { singOut } from "../store/actions/AuthActions";
 

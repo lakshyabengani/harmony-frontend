@@ -19,10 +19,10 @@ const SignupPage = () => {
         <span className="page-title">Harmony</span>
       </Navbar.Brand>
     </Navbar>
-    <div className="page-header">Sign Up</div>
+    <div className="page-header">Settings</div>
     <SignupForm submitAction={handlePageSumbit} /> 
     { sumbitted && 
-      <Redirect to='/swipeDeck' />
+      <Redirect to='/home' />
     }
     </div>
   )

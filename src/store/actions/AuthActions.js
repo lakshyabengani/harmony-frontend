@@ -11,3 +11,10 @@ export const singOut = () => async (dispatch, getState) => {
         payload: false,
     });
 };
+
+export const signUp = () => async (dispatch, getState) => {
+    dispatch({
+        type: "SIGN_UP",
+        payload: true,
+    });
+};
