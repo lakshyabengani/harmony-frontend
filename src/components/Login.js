@@ -16,25 +16,18 @@ const Login = (props) => {
     });
     const dispatch = useDispatch();
 
-    // const loginFn = () => {
-    //     // This is the fn that changes state to expose the logged in pages to user
-    //     dispatch(signIn());
-    // };
-
     const handleChange = (event) => {
         event.preventDefault();
         setLoginForm({ ...loginForm, [event.target.name]: event.target.value });
     };
 
-    const postSubmitAction = (path, error) => {
+    const postSubmitAction = (path, status) => {
         setLoginForm({ email: "", password: "", retypePassword: "" });
         props.onHide(false);
-        if (error) alert(error);
-        // else props.changePath(path);
+        if (status === 200) props.changePath(path);
     };
 
     const handleSubmit = () => {
-        // loginFn();
         if (loginForm.username.length > 0 && loginForm.password.length > 0) {
             if (
                 props.modalName === action.SIGNUP &&
@@ -48,23 +41,23 @@ const Login = (props) => {
                 signupApi(loginForm.username, loginForm.password)
                     .then((res) => {
                         console.log(res);
-                        postSubmitAction("/settings", res.error);
+                        postSubmitAction("/settings", res.status);
                         dispatch(signUp());
                     })
                     .catch((errObj) => {
                         console.log(errObj);
-                        postSubmitAction("/settings", errObj.error);
+                        postSubmitAction("/settings", errObj.status);
                     });
             } else {
                 loginApi(loginForm.username, loginForm.password)
                     .then((res) => {
                         console.log(res);
-                        postSubmitAction("/home", res.error);
+                        postSubmitAction("/home", res.status);
                         dispatch(signIn());
                     })
                     .catch((errObj) => {
                         console.log(errObj);
-                        postSubmitAction("/home", errObj.error);
+                        postSubmitAction("/home", errObj.status);
                     });
             }
         } else {

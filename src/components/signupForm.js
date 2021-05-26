@@ -10,11 +10,14 @@ import DatePicker from 'react-date-picker';
 import Passions from '../components/Passions'
 import { getSettingsApi, postSettingsApi } from "../api/backend";
 import Images from "./Images";
+import { useDispatch } from "react-redux";
 
 const SPOTIFY_CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID ;
 const SPOTIFY_REDIRECT_URL = process.env.REACT_APP_SPOTIFY_REDIRECT_URL;
 
 const SignupForm = props => {
+
+  const dispatch = useDispatch();
 
   const [passionModalShow, setPassionModalShow] = useState(false);
 
@@ -35,7 +38,7 @@ const SignupForm = props => {
     age_min: 18,
     age_max: 21,
     job: '',
-    education: '',
+    distance: 1,
     interested_gender: 'Men',
     sexual_orientation_name: '',
     ytmusic_link: "",
@@ -77,7 +80,7 @@ const SignupForm = props => {
       setSignupForm({ ...signupForm, age_max: 21 , age_min : 18 });
       return false;
     }
-    else if(!signupForm.spotify_link){
+    else if(!signupForm.spotify_link && !sessionStorage.getItem('spotify_access_token')){
       alert('sign into Spotify');
     }
     else return true;
@@ -85,7 +88,6 @@ const SignupForm = props => {
 
   const handleSubmit = (event) => {
     if(validateForm()){
-
       const desired_list = fixedLists.sexual_orientation_list.filter( orientation => orientation.name === signupForm.sexual_orientation_name);
       const orientation_id = desired_list[0].id;
       const temp = Object.assign({},signupForm);
@@ -96,9 +98,20 @@ const SignupForm = props => {
       });
       data['age_max'] = parseInt(data['age_max']);
       data['age_min'] = parseInt(data['age_min']);
+      data['distance'] = parseInt(data['distance']);
       delete data['user_passions'];
       delete data['sexual_orientation_name'];
       delete data['ytmusic_link'];
+      const token = sessionStorage.getItem('spotify_access_token')
+      if(token){
+        data['spotify_link'] = token;
+        data['spotify_access_token'] = token;
+      }
+      else delete data['spotify_link'];
+      navigator.geolocation.getCurrentPosition((position) => {
+        data['lat'] = position.coords.latitude;
+        data['long'] = position.coords.longitude;
+      })
       console.log(data);
       
       postSettingsApi(data)
@@ -128,12 +141,15 @@ const SignupForm = props => {
       else 
         sessionStorage.setItem(key,data[key])
     });
-    window.location = `${SPOTIFY_AUTH_URL}?client_id=${SPOTIFY_CLIENT_ID}&redirect_uri=${SPOTIFY_REDIRECT_URL}&response_type=code&show_dialog=true`;
+    window.location = `${SPOTIFY_AUTH_URL}?client_id=${SPOTIFY_CLIENT_ID}&redirect_uri=${SPOTIFY_REDIRECT_URL}&response_type=token&scope=user-top-read&show_dialog=true`;
   }
 
   //To Do : Set the initial Values of the state after a GET call on the setting API
 
   const setFormData = (inputData) =>{
+    
+    if(sessionStorage.getItem('spotify_access_token'))
+      console.log('spotify_access_token : '+sessionStorage.getItem('spotify_access_token'));
 
     setSignupForm({
       name : sessionStorage.getItem('name') ?? (inputData.name ?? ""),
@@ -146,7 +162,7 @@ const SignupForm = props => {
       spotify_link : sessionStorage.getItem('spotify_link') ?? (inputData.spotify_link ?? ""),
       ytmusic_link : sessionStorage.getItem('ytmusic_link') ?? ( inputData.ytmusic_link ?? ""),
       sexual_orientation_name : sessionStorage.getItem('sexual_orientation_name') ?? (inputData.sexual_orientation_name ?? inputData.sexual_orientation_list[0].name ),
-      education : sessionStorage.getItem('education') ?? ( inputData.education ?? ''),
+      distance : sessionStorage.getItem('distance') ? parseInt(sessionStorage.getItem('distance')) : ( inputData.distance ?? 2 ),
       user_passions : sessionStorage.getItem('user_passions') ?  JSON.parse(sessionStorage.getItem('user_passions')) : inputData.user_passions.map( passions => passions.passion_id) ,
     });
 
@@ -161,23 +177,16 @@ const SignupForm = props => {
 
   useEffect(() => {
     try{
-  
-      // check if the spotify access code is present or not 
-      const params = window.location.search;
-      if(params){
-        const st = params.slice(1).split('&');
-        const a = st[0].split('=');
-        const title = a[0];
-        const value = a[1];
-        if(title === "code")
-          sessionStorage.setItem('spotify_link',value);
-        else{
-          alert('Error');
-          console.log('error',value);
+      if(window.location.hash){
+        const a = window.location.hash.slice(1).split('&');
+        console.log(a);
+        if(a){
+          const tk = a[0].split('=');
+          console.log(tk[1]);
+          sessionStorage.setItem('spotify_access_token',tk[1]);
         }
+        window.location = `${SPOTIFY_REDIRECT_URL}` ;
       }
-
-      // make an api call to get all the settings of the user and store it in session storage.
       getSettingsApi()
         .then((obj) => {
           console.log(obj);
@@ -186,7 +195,6 @@ const SignupForm = props => {
         .catch(err => {
           console.log(err);
         });
-
     }catch(err){
       console.log(err); 
     }
@@ -245,7 +253,7 @@ const SignupForm = props => {
               />
             </InputGroup>
           </Form.Group>
-          <Form.Group as={Col} controlId="education">
+          {/* <Form.Group as={Col} controlId="education">
             <Form.Label>Education</Form.Label>
             <InputGroup className="mb-2">
               <InputGroup.Prepend>
@@ -261,6 +269,29 @@ const SignupForm = props => {
                 onChange={handleChange}
               />
             </InputGroup>
+          </Form.Group> */}
+          <Form.Group as={Col} controlId="distance">
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}>
+              <Form.Label>Maximum Distance (in Kms)</Form.Label>
+              <span>
+              <Form.Text>{signupForm.distance}</Form.Text>
+              </span>
+            </div>
+            <Form.Control
+              type="range"
+              min="2"
+              max="50"
+              step="1"
+              value={signupForm.distance}
+              name="distance"
+              onChange={handleChange}
+              custom
+            />
           </Form.Group>
         </Form.Row>
         <Form.Row>

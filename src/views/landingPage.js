@@ -2,12 +2,12 @@ import { useState } from "react";
 import "../styles/landingPage.styles.css";
 import Appbar from "../components/Appbar";
 import Home from "../components/Home";
-// import { Redirect } from "react-router";
+import { Redirect } from "react-router";
 
 function LandingPage() {
     const [loginModalShow, setLoginModalShow] = useState(false);
     const [modalName, setModalName] = useState("");
-    // const [redirectPath, setRedirectPath] = useState("");
+    const [redirectPath, setRedirectPath] = useState("");
 
     function loginModalCallback(show) {
         setLoginModalShow(show);
@@ -17,10 +17,9 @@ function LandingPage() {
         setModalName(name);
     }
 
-    // function changeRedirectPath(path) {
-    //     setRedirectPath(path);
-    // }
-
+    function changeRedirectPath(path) {
+        setRedirectPath(path);
+    }
     return (
         <div className="landing-page">
             <Appbar
@@ -32,9 +31,9 @@ function LandingPage() {
                 modalName={modalName}
                 loginModalCallback={loginModalCallback}
                 changeModalName={changeModalName}
-                // changePath={changeRedirectPath}
+                changePath={changeRedirectPath}
             />
-            {/* {redirectPath ? <Redirect to={redirectPath} /> : null} */}
+            {redirectPath ? <Redirect to={redirectPath} /> : null}
         </div>
     );
 }

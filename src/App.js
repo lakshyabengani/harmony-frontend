@@ -13,20 +13,27 @@ function App() {
         <BrowserRouter>
             {auth ? (
                 <Switch>
-                    <Route path="/settings">
-                        <SignupPage />
-                    </Route>
+                    <Route path="/settings" render={() => <SignupPage />}/>
                     <Route exact path="/home">
                         <HomePage />
                     </Route>
                     {ftu ? <Redirect to="/settings" exact /> : <Redirect to="/home" exact />}
+                    <Route exact path='/landing'>
+                        <Redirect to='/home' />
+                    </Route>
                 </Switch>
             ) : (
                 <Switch>
+                    <Route exact path="/">
+                        <Redirect to='/landing' exact />
+                    </Route>
                     <Route exact path="/landing">
                         <div className="App">
                             <LandingPage />
                         </div>
+                    </Route>
+                    <Route exact path='/settings'>
+                        <Redirect to="/landing" exact />                        
                     </Route>
                     <Redirect to="/landing" exact />
                 </Switch>
