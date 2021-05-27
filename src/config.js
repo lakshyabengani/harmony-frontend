@@ -50,28 +50,74 @@ export const baseUrl = "https://harmony-backend.herokuapp.com";
 
 export const peoplesList = [
      {
+          public_id: 'vhwcbjkwdqdqwd8qw8dqwd7q',
           name: 'Shira',
           age: 24,
-          url: ['https://1.bp.blogspot.com/-AagECmK1RZE/XjZcTEtBtZI/AAAAAAAANgs/g_VqI4sPSmk3QI0NOzIqWCDeffmhT0oOACLcBGAsYHQ/s1600/Whatsapp%2BDP%2BGirl%2B%25282%2529.png', 'https://eskipaper.com/images/girl-guitar-music-1.jpg'],
-          info: 'Will you be my quaran-tine? It’s like a Valentine, except we can’t leave the house and just eat a lot of snacks !!!',
+          passions: [
+              "Travelling",
+                "Singing",
+                "Sports",
+                "Poetry",
+                "Drawing"
+            ],
+          job : 'Accountant',
+          images: [ 
+              {img_src: 'https://1.bp.blogspot.com/-AagECmK1RZE/XjZcTEtBtZI/AAAAAAAANgs/g_VqI4sPSmk3QI0NOzIqWCDeffmhT0oOACLcBGAsYHQ/s1600/Whatsapp%2BDP%2BGirl%2B%25282%2529.png'},
+              {img_src: 'https://eskipaper.com/images/girl-guitar-music-1.jpg'}
+            ],
+          bio: 'Will you be my quaran-tine? It’s like a Valentine, except we can’t leave the house and just eat a lot of snacks !!!',
      },
      {
           name: 'Amara',
+          public_id: 'vhwcbjkwdqdqwefuwiefuiweuf',
           age: 22,
-          url: ['https://1.bp.blogspot.com/-bsvzoopqo_g/XjZcQWIO3pI/AAAAAAAANgY/0ctGqCReaHINfeXgWln8D8NfflVM58JlQCLcBGAsYHQ/s1600/Whatsapp%2BDP%2BGirl%2B%25282%2529.jpg', 'https://get.wallhere.com/photo/face-sunlight-women-outdoors-women-depth-of-field-long-hair-nature-brunette-grass-photography-profile-morning-hair-in-face-emotion-autumn-flower-plant-girl-beauty-eye-close-up-grass-family-215720.jpg'],
-          info: 'Match with me and I’ll tell you all about how easy it is to wear the same sweats for two weeks straight.',
+          job: 'Student',
+          images: [
+              {img_src: 'https://1.bp.blogspot.com/-bsvzoopqo_g/XjZcQWIO3pI/AAAAAAAANgY/0ctGqCReaHINfeXgWln8D8NfflVM58JlQCLcBGAsYHQ/s1600/Whatsapp%2BDP%2BGirl%2B%25282%2529.jpg'},
+              {img_src: 'https://get.wallhere.com/photo/face-sunlight-women-outdoors-women-depth-of-field-long-hair-nature-brunette-grass-photography-profile-morning-hair-in-face-emotion-autumn-flower-plant-girl-beauty-eye-close-up-grass-family-215720.jpg'}
+            ],
+            passions: [
+                "Writing",
+                "Dancing",
+                "Feminism",
+                "Politics"
+              ],
+          bio: 'Match with me and I’ll tell you all about how easy it is to wear the same sweats for two weeks straight.',
      },
      {
           name: 'Giselle',
+          public_id: 'vhwcbjkw43242342b34jb2j4bbjb',
           age: 27,
-          url: ['https://1.bp.blogspot.com/-8ovGjB55ofo/Xa_6INpLZgI/AAAAAAAABwo/LAygjAfjPdQ5SOo-FDlJ1_MyHfoyPD-VQCLcBGAsYHQ/s1600/stylish%2Bdp%2Bfor%2Bgirls%2B%25288%2529.jpg', 'https://i1.wp.com/www.hindishayaricollections.com/wp-content/uploads/2019/10/hidden-face-dp-for-girls-43.jpg?resize=600%2C404&ssl=1'],
-          info: 'Actively seeking someone to talk to about what happened to Carole Baskin’s first husband.',
+          job: 'Doctor',
+          passions:[
+            "Sex",
+            "Psychology",
+            "Science",
+          ],
+          images: [
+              {img_src: 'https://1.bp.blogspot.com/-8ovGjB55ofo/Xa_6INpLZgI/AAAAAAAABwo/LAygjAfjPdQ5SOo-FDlJ1_MyHfoyPD-VQCLcBGAsYHQ/s1600/stylish%2Bdp%2Bfor%2Bgirls%2B%25288%2529.jpg'}, 
+              {img_src: 'https://i1.wp.com/www.hindishayaricollections.com/wp-content/uploads/2019/10/hidden-face-dp-for-girls-43.jpg?resize=600%2C404&ssl=1'}
+            ],
+          bio: 'Actively seeking someone to talk to about what happened to Carole Baskin’s first husband.',
      },
      {
           name: 'Eliana',
+          public_id: 'vhwcbjkwdqdqwd3e34bhsdbksde',
           age: 25,
-          url: ['https://1.bp.blogspot.com/-Mntqhgb-Q8E/XUQrM6w8d3I/AAAAAAAAA5E/EEjhOwVEp0Aoxbw8XbXH104Ab1ATHmXQQCLcBGAs/s1600/cool-girls-dp-for-face-book.jpg', 'https://i.pinimg.com/originals/61/f7/3b/61f73bc80544d75ea2a2d983adb6270c.jpg', 'https://thypix.com/wp-content/uploads/beautiful-profile-picture-hidden-face-girl-23.jpg'],
-          info: 'If you find yourself trapped inside and looking for conversation, I can promise you I’m more entertaining than Netflix.',
+          passions:[
+            "Sex",
+            "Psychology",
+            "Science",
+            "Sports",
+            "Poetry",
+          ],
+          job: 'Musician',
+          images: [
+              {img_src: 'https://1.bp.blogspot.com/-Mntqhgb-Q8E/XUQrM6w8d3I/AAAAAAAAA5E/EEjhOwVEp0Aoxbw8XbXH104Ab1ATHmXQQCLcBGAs/s1600/cool-girls-dp-for-face-book.jpg'}, 
+              {img_src: 'https://i.pinimg.com/originals/61/f7/3b/61f73bc80544d75ea2a2d983adb6270c.jpg'}, 
+              {img_src: 'https://thypix.com/wp-content/uploads/beautiful-profile-picture-hidden-face-girl-23.jpg'}
+            ],
+          bio: 'If you find yourself trapped inside and looking for conversation, I can promise you I’m more entertaining than Netflix.',
      },
 ]
 

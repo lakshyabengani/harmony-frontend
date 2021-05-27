@@ -4,22 +4,28 @@ html {
 }
 
 .card{
-  width: 350px;
+  width: 550px;
+  height: 550px;
 }
 
 .card-text{
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 150px;
 }
 
 .card-image{
-  height: 350px;
-  width: 350px;
+  height: 300px;
+  width: auto;
 }
 
 ::-webkit-scrollbar {
   width: 0;  /* Remove scrollbar space */
   background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+.passionBadge{
+  background-color: "#A04A4A";
+  color: ghostwhite;
 }
 
 /* .carousel-indicators li{
