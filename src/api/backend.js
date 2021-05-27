@@ -14,7 +14,7 @@ const generateResponse = (statusCode , data , error ) => {
 
 export const signupApi = async(user_email,user_password) => {
     try{
-        const name = "Dummy";
+        const name = "";
 
         const data = JSON.stringify({
             f_name : name,
@@ -195,6 +195,88 @@ export const getProfileImagesApi = async() => {
         console.log(err.response);
         const res = err.response;
         const errorObject = generateResponse(res.status, null, res.data.error);
+        throw errorObject;
+    }
+}
+
+export const getProfileAPi = async(profile_id) => {
+    try{
+        const token = localStorage.getItem('JWTtoken');
+    
+        const res = await axios.get(baseUrl+'/user/profile',{
+            params:{
+                user_id : profile_id
+            },
+            headers:{
+                'x-access-tokens': token,
+            }
+        });
+
+        console.log(res);
+
+        const returnObject = generateResponse(res.status, res.data, null)
+        return returnObject;
+
+    }catch(err){
+
+        console.log(err.response);
+        const res = err.response;
+        const errorObject = generateResponse(res.status, null, res.data);
+        throw errorObject;
+    }
+}
+
+export const getNotifications = async(last_feed_time) =>{
+    try{
+        const token = localStorage.getItem('JWTtoken');
+
+        const res = await axios.get(baseUrl+'/notifications',{
+            params:{
+                last_feed_refresh_date : last_feed_time
+            },
+            headers:{
+                'x-access-tokens': token,
+            }
+        })
+
+        console.log(res);
+
+        const returnObject = generateResponse(res.status, res.data, null)
+        return returnObject;
+
+    }catch(err){
+        
+        console.log(err.response);
+        const res = err.response;
+        const errorObject = generateResponse(res.status, null, res.data);
+        throw errorObject;
+    }
+}
+
+export const getProfileSuggestion = async(index,offset) =>{
+    try{
+        const token = localStorage.getItem('JWTtoken');
+
+        const res = await axios.get(baseUrl+'/get_profiles',{
+            params:{
+                index : index,
+                offset: offset
+            },
+            headers:{
+                'x-access-tokens': token,
+            }
+        })
+
+        console.log(res);
+
+        const returnObject = generateResponse(res.status, res.data, null)
+        return returnObject;
+
+    }catch(err){
+        
+        console.log(err.response);
+        const res = err.response;
+        const errorObject = generateResponse(res.status, null, res.data);
         throw errorObject;
     }
 }
