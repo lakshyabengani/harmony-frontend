@@ -1,12 +1,4 @@
 
-#container{
-	
-	background:#eff3f7;
-	margin:0 auto;
-	font-size:0;
-	border-radius:5px;
-	overflow:hidden;
-}
 aside{
 	height:800px;
 	background-color:#3b3e49;
@@ -149,22 +141,7 @@ main::-webkit-scrollbar-thumb {
   padding: 0 10px;
 }
 
-.button {
-  background-color: #282c34; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
-  font-size: 1.25rem;
-}
 
-.button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
 .li{
   text-align: left;
   list-style: none;
@@ -191,6 +168,11 @@ main::-webkit-scrollbar-thumb {
 
 .sent {
   flex-direction: row-reverse;
+}
+
+footer form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .sent p {
