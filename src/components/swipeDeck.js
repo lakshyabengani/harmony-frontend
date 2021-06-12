@@ -2,22 +2,26 @@ import { useEffect, useState } from "react";
 import { Button , Col, Container, Row} from "react-bootstrap";
 import CarouselCards from "./CarouselCards";
 import '../styles/swipeDeck.style.css'
-import { getNotifications, getProfileAPi, getProfileSuggestion } from "../api/backend";
-import { useInterval } from "../utils/Pollings";
+import { getProfileSuggestion, post_likes } from "../api/backend";
 import { peoplesList } from "../config";
 
 const SwipeDeck = props => {
 
   const [cardIndex,setCardIndex] = useState(0);
-  const [showDeck,setShowDeck] = useState(true);
+  const [showDeck,setShowDeck] = useState(false);
   const [list,setList] = useState([]);
+  const [likes,setLikes] = useState([]);
   const [batch,setBatch] = useState({
-    index: 0,
+    index: 1,
     offset:10,
+    likes:[],
+    list:[],
+    cardIndex:0,
   });
 
   const changeCardIndex = index => {
-    setCardIndex(index);
+    // setCardIndex(index);
+    setBatch({...batch,cardIndex: index});
   }
 
   const handleShow = show => {
@@ -25,68 +29,78 @@ const SwipeDeck = props => {
   }
 
   const handleYay = () => {
-    setCardIndex(cardIndex+1);
+    let n_like = batch.likes;
+    n_like.push(batch.list[batch.cardIndex].public_id);
+    // console.log(n_like);
+    // setLikes(n_like);
+    // setCardIndex(cardIndex+1);
+    setBatch({...batch,likes:n_like,cardIndex:batch.cardIndex+1});
   }
 
   const handleNay = () => {
-    setCardIndex(cardIndex+1);
+    // setCardIndex(cardIndex+1);
+    setBatch({...batch,cardIndex:batch.cardIndex+1});
   }
 
   const handleList = () =>{
     /**
      * Steps To do : 
      * If we already had a batch to show then we post The userLikes array to backend
+     * increment the batch index
      * We fetch the new Batch from backend
      * if the batch has any element we set showDeck to true else false
      */
     setShowDeck(false);
   }
   
-  //Notifications  
-  // useInterval(async() =>{
-  //   try{
-  //     const res = await getNotifications(new Date().toString());
-  //     console.log(res)
-  //   }catch(err){
-  //     console.log(err);
-  //   }
-  // },5*1000)
-
   useEffect(()=>{
-  //   getProfileAPi(localStorage.getItem('public_user_id'))
-  //     .then(res => {
-  //       console.log(res);
-  //   })
-  //   .catch(errObj => {
-  //     console.log(errObj)
-  //   })
-    // getProfileSuggestion(batch.index,batch.offset)
-    //   .then(res => {
-    //     console.log(res);
-    // })
-    // .catch(errObj => {
-    //   console.log(errObj)
-    // })
-    setList(peoplesList);
-    setShowDeck(true);
+    console.log(batch.index);
+    getProfileSuggestion(batch.index,batch.offset)
+      .then(res => {
+        console.log(res);
+        // setList(res.data.recommendation);
+        setBatch({...batch,list:res.data.recommendation});
+        if(res.data.recommendation.length > 0 ){
+          setShowDeck(true);
+        }else{
+          setShowDeck(false);
+        }
+    })
+    .catch(errObj => {
+      console.log(errObj)
+    });
   },[])
 
-  // useEffect(()=>{
-  //   console.log(list);
-  //   if(list.length !== 0){
-  //     setShowDeck(true);
-  //   }
-  //   else{
-  //     /**
-  //      * Steps To do : 
-  //      * If we already had a batch to show then we post The userLikes array to backend
-  //      * We fetch the new Batch from backend
-  //      * if the batch has any element we set showDeck to true else false
-  //      */
-  //     // setList(peoplesList);
-  //     setShowDeck(false);
-  //   }
-  // },[list])
+  useEffect(()=>{
+    if(showDeck === false && batch.list.length > 0){
+      console.log("not showing");
+      console.log(batch.likes);
+      post_likes(batch.likes)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+      getProfileSuggestion(batch.index+1,batch.offset)
+      .then(res => {
+        console.log(res);
+    //     console.log(batch.index);
+        // setLikes([]);
+        // setCardIndex(0);
+        // setBatch({...batch,index: n_index});
+        // setList(res.data.recommendations);
+        setBatch({...batch,list:res.data.recommendations,likes:[],cardIndex:0,index: batch.index+1});
+        if(res.data.recommendations.length > 0 ){
+          setShowDeck(true);
+        }else{
+          setShowDeck(false);
+        }
+    })
+    .catch(errObj => {
+      console.log(errObj)
+    });
+    }
+    else{
+      console.log("showing");
+    }
+  },[showDeck])
 
   return(
     <>
@@ -94,11 +108,11 @@ const SwipeDeck = props => {
     <Container >   
       <Row className='cards'>
       <CarouselCards 
-        index={cardIndex}
+        index={batch.cardIndex}
         changeCard={changeCardIndex}
         setShow={handleShow}
-        suggestionlist={list}
-        setlist={setList}
+        suggestionlist={batch.list}
+        // setlist={setList}
         handleList={handleList}
       />
       </Row>

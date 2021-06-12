@@ -7,7 +7,7 @@ const AuthReducer = (state = { isLoggedIn: login ? login : false , ftu : fUser ?
             return { ...state, isLoggedIn: action.payload };
         case "SIGN_OUT":
             localStorage.clear();
-            return { ...state, isLoggedIn: action.payload };
+            return { isLoggedIn: action.payload , ftu : action.payload};
         case "SIGN_UP":
             localStorage.setItem('isLoggedIn',true);
             localStorage.setItem('ftu',true);

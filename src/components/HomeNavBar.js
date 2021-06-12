@@ -1,16 +1,19 @@
 /* eslint-disable no-unused-vars */
 import { Navbar, Nav, NavItem, Dropdown, Image } from "react-bootstrap";
 import "../styles/homeBar.style.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faCog,
     faEllipsisV,
+    fas,
     faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { Redirect, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { singOut } from "../store/actions/AuthActions";
+import { getProfileAPi } from "../api/backend";
+import { faBell } from "@fortawesome/free-regular-svg-icons";
 
 const HomeNavBar = (props) => {
     const history = useHistory();
@@ -19,6 +22,20 @@ const HomeNavBar = (props) => {
     const logoutFn = () => {
         dispatch(singOut());
     };
+
+    const [userDetail,setUserDetail] = useState({ name : '' , img_src : ''});
+
+    useEffect(()=>{
+        console.log(localStorage.getItem('public_user_id'));
+        getProfileAPi(localStorage.getItem('public_user_id'))
+        .then(res => {
+            console.log(res);
+            setUserDetail({name : res.data.user_data.name , img_src : res.data.user_data.images[0].img_src});
+        })
+        .catch(errObj => {
+        console.log(errObj)
+        })
+    },[])
 
     const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
         <a
@@ -45,15 +62,19 @@ const HomeNavBar = (props) => {
             <Nav className="justify-content-end">
                 <div className="container" style={{ padding: "5px" }}>
                     <Image
-                        src="https://i.pinimg.com/564x/0c/40/c4/0c40c4f9c2f12c03b4e3fd541fae52ee.jpg"
+                        src={userDetail.img_src}
                         roundedCircle
                         width="72px"
                         height="72px"
+                        onClick={()=>{props.setId(localStorage.getItem('public_user_id'));props.setShow(true);}}
                     />
                     <Nav.Item>
                         <span className="appbar-subtitle text-white">
-                            Rohit
+                            {userDetail.name}
                         </span>
+                    </Nav.Item>
+                    <Nav.Item style={{padding:'10px'}} onClick={() => {props.notifyShow(true);}}>
+                        <FontAwesomeIcon icon={faBell} size='2x' color='white'/>
                     </Nav.Item>
                     <Dropdown as={NavItem}>
                         <Dropdown.Toggle

@@ -38,8 +38,8 @@ const SignupForm = props => {
     age_min: 18,
     age_max: 21,
     job: '',
-    distance: 1,
-    interested_gender: 'Men',
+    distance: 4,
+    interested_gender: 'male',
     sexual_orientation_name: '',
     ytmusic_link: "",
     spotify_link: '',
@@ -70,6 +70,14 @@ const SignupForm = props => {
     setSignupForm({...signupForm,[event.target.name] : event.target.value });
   }
 
+  const calculateAge = (dob) => {
+    const today = new Date();
+    let age = today.getFullYear() - dob.getFullYear();
+    const m = today.getMonth() - dob.getMonth();
+    if( m<0 || (m === 0 && today.getDate() < dob.getDate() )) age--;
+    return age;
+  }
+
   const validateForm = () => {
     if(signupForm.name === "" || signupForm.gender === "" || signupForm.birthday === "" ){
       alert('Fill in the mandatory details');
@@ -83,6 +91,10 @@ const SignupForm = props => {
     else if(!signupForm.spotify_link && !sessionStorage.getItem('spotify_access_token')){
       alert('sign into Spotify');
     }
+    // age should be >= 18 yrs
+    else if(calculateAge(birth_date) < 18 ){
+      alert('Your age should be minimum 18 yrs');
+    }
     else return true;
   }
 
@@ -92,7 +104,7 @@ const SignupForm = props => {
       const orientation_id = desired_list[0].id;
       const temp = Object.assign({},signupForm);
       const data = Object.assign(temp,{
-        birth_date : new Date(birth_date),
+        birth_date : new Date(birth_date).toISOString(),
         sexual_orientation_id : orientation_id,
         passions : signupForm.user_passions,
       });
@@ -111,20 +123,19 @@ const SignupForm = props => {
       navigator.geolocation.getCurrentPosition((position) => {
         data['lat'] = position.coords.latitude;
         data['long'] = position.coords.longitude;
+        console.log(data);
+        sessionStorage.clear();
+        postSettingsApi(data)
+          .then(res => {
+            console.log(res);
+            alert('Form Submitted');
+            props.submitAction(true);
+          })
+          .catch(err => {
+            console.log(err);
+            alert('error in form submission');
+          });
       })
-      console.log(data);
-      
-      postSettingsApi(data)
-        .then(res => {
-          console.log(res);
-          alert('Form Submitted');
-          sessionStorage.clear();
-          props.submitAction(true);
-        })
-        .catch(err => {
-          console.log(err);
-          alert('error in form submission');
-        });
     }
     
   }
@@ -135,7 +146,7 @@ const SignupForm = props => {
     });
     Object.keys(data).forEach( (key) => {
       if(key === 'birth_date')
-        sessionStorage.setItem('birth_date',birth_date.toString());
+        sessionStorage.setItem('birth_date',birth_date.toISOString());
       else if(key === 'user_passions') 
         sessionStorage.setItem(key,JSON.stringify(data[key]));
       else 
@@ -157,12 +168,12 @@ const SignupForm = props => {
       age_min : sessionStorage.getItem('age_min') ? parseInt(sessionStorage.getItem('age_min')) : ( inputData.age_min ?? 18 ),
       gender : sessionStorage.getItem('gender') ?? (inputData.gender ?? "")  ,
       bio : sessionStorage.getItem('bio') ?? ( inputData.bio ?? ""),
-      interested_gender : sessionStorage.getItem('interested_gender') ?? ( inputData.interested_gender ?? 'Men' ),
+      interested_gender : sessionStorage.getItem('interested_gender') ?? ( inputData.interested_gender ?? 'male' ),
       job : sessionStorage.getItem('job') ?? ( inputData.job ?? "" ),
       spotify_link : sessionStorage.getItem('spotify_link') ?? (inputData.spotify_link ?? ""),
       ytmusic_link : sessionStorage.getItem('ytmusic_link') ?? ( inputData.ytmusic_link ?? ""),
       sexual_orientation_name : sessionStorage.getItem('sexual_orientation_name') ?? (inputData.sexual_orientation_name ?? inputData.sexual_orientation_list[0].name ),
-      distance : sessionStorage.getItem('distance') ? parseInt(sessionStorage.getItem('distance')) : ( inputData.distance ?? 2 ),
+      distance : sessionStorage.getItem('distance') ? parseInt(sessionStorage.getItem('distance')) : ( inputData.distance ?? 4 ),
       user_passions : sessionStorage.getItem('user_passions') ?  JSON.parse(sessionStorage.getItem('user_passions')) : inputData.user_passions.map( passions => passions.passion_id) ,
     });
 
@@ -253,23 +264,6 @@ const SignupForm = props => {
               />
             </InputGroup>
           </Form.Group>
-          {/* <Form.Group as={Col} controlId="education">
-            <Form.Label>Education</Form.Label>
-            <InputGroup className="mb-2">
-              <InputGroup.Prepend>
-                <InputGroup.Text>
-                  <FontAwesomeIcon icon={faGraduationCap} />
-                </InputGroup.Text>
-              </InputGroup.Prepend>
-              <Form.Control
-                type="text"
-                name="education"
-                placeholder="Education"
-                value={signupForm.education}
-                onChange={handleChange}
-              />
-            </InputGroup>
-          </Form.Group> */}
           <Form.Group as={Col} controlId="distance">
             <div
               style={{
@@ -284,7 +278,7 @@ const SignupForm = props => {
             </div>
             <Form.Control
               type="range"
-              min="2"
+              min="4"
               max="50"
               step="1"
               value={signupForm.distance}
@@ -307,18 +301,27 @@ const SignupForm = props => {
                   inline
                   name="gender"
                   type="radio"
-                  label="Men"
-                  id="men"
-                  value="Men"
+                  label="Male"
+                  id="male"
+                  value="male"
                   className="mr-2"
                 />
                 <Form.Check
                   inline
                   name="gender"
                   type="radio"
-                  label="Women"
-                  value="Women"
-                  id="women"
+                  label="Female"
+                  value="female"
+                  id="female"
+                />
+                <Form.Check
+                  inline
+                  name="gender"
+                  type="radio"
+                  label="Non Binary"
+                  id="non_binary"
+                  value="non_binary"
+                  className="mr-2"
                 />
               </div>
             </Form.Group>
@@ -403,8 +406,9 @@ const SignupForm = props => {
               defaultValue={sessionStorage.getItem('interested_gender') ?? signupForm.interested_gender}
               onChange={handleChange}
               custom>
-              <option>Men</option>
-              <option>Women</option>
+              <option>male</option>
+              <option>female</option>
+              <option>everyone</option>
             </Form.Control>
           </Form.Group>
         </Form.Row>
