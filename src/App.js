@@ -1,6 +1,7 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
 import LandingPage from "./views/landingPage";
+import Chats from "./components/chatbox"
 import SignupPage from "./views/signupPage";
 import HomePage from "./views/homePage";
 
@@ -20,6 +21,9 @@ function App() {
             </Route>
             <Route exact path="/swipeDeck">
                 <HomePage />
+            </Route>
+            <Route exact path ="/messages">
+                <Chats />
             </Route>
         </Switch>
     );

@@ -198,3 +198,28 @@ export const getProfileImagesApi = async() => {
         throw errorObject;
     }
 }
+
+export const getUserMatchesApi = async() => {
+    try {
+        const token = localStorage.getItem('JWTtoken');
+        const config = {
+            method: 'get',
+            url: baseUrl + '/UserMatches',
+            headers: {
+                'x-access-tokens': token,
+            },
+        }
+
+        const res = await axios(config);
+        console.log(res);
+        const returnObject = generateResponse(res.status, res.data, null)
+        return returnObject;
+
+    } catch (err) {
+
+        console.log(err.response);
+        const res = err.response;
+        const errorObject = generateResponse(res.status, null, res.data.error);
+        throw errorObject;
+    }
+}
