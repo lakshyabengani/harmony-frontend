@@ -43,8 +43,10 @@ const Chats = props => {
             <aside>
               <ul className="li">
                 {Matches.map((obj, idx) => (
+
                   <li className="li">
                     <img className="mt-2 ml-4 p-1 profimg" src={obj.img_src} alt="" />
+
                     <div>
                       <Button bsPrefix="custom-name" id={obj.match_id} name={obj.img_src} onClick={showChat}>{obj.name}</Button>
                     </div>
