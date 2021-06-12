@@ -2,6 +2,7 @@ import { Route, Switch, BrowserRouter, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./App.css";
 import LandingPage from "./views/landingPage";
+import Chats from "./components/chatbox"
 import SignupPage from "./views/signupPage";
 import HomePage from "./views/homePage";
 
@@ -10,6 +11,27 @@ function App() {
     const ftu = useSelector((state) => state.auth.ftu);
     console.log(ftu +" " +auth);
     return (
+<<<<<<< HEAD
+        <Switch>
+            <Route exact path="/home">
+                <div className="App">
+                    <LandingPage />
+                </div>
+            </Route>
+            <Route exact path="/">
+                <Redirect to="/home" />
+            </Route>
+            <Route path="/signup">
+                <SignupPage />
+            </Route>
+            <Route exact path="/swipeDeck">
+                <HomePage />
+            </Route>
+            <Route exact path ="/messages">
+                <Chats />
+            </Route>
+        </Switch>
+=======
         <BrowserRouter>
             {auth ? (
                 <Switch>
@@ -39,6 +61,7 @@ function App() {
                 </Switch>
             )}
         </BrowserRouter>
+>>>>>>> upstream/main
     );
 }
 
