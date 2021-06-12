@@ -112,7 +112,7 @@ function ChatRoom(props) {
 
         <input className="chatinput" value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="say something nice" />
 
-        <button className="chatbtn" type="submit" disabled={!formValue}>🕊️send</button>
+        <button className="chatbtn button" type="submit" disabled={!formValue}>🕊️send</button>
 
       </form>
 		</footer>

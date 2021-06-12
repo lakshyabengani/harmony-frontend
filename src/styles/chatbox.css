@@ -149,7 +149,7 @@ main::-webkit-scrollbar-thumb {
   padding: 0 10px;
 }
 
-button {
+.button {
   background-color: #282c34; /* Green */
   border: none;
   color: white;
@@ -161,7 +161,7 @@ button {
   font-size: 1.25rem;
 }
 
-button:disabled {
+.button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
