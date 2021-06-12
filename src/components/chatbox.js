@@ -3,7 +3,7 @@ import { Row, Col, ListGroup, Button, Container } from "react-bootstrap";
 import { firestore } from "../firebase";
 import firebase from "firebase/app"
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { getUserMatchesApi } from "../api/backend";
+import { getMatches } from "../api/backend";
 import "../styles/chatbox.css"
 
 const Chats = props => {
