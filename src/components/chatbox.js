@@ -48,7 +48,20 @@ const Chats = props => {
                     <img className="mt-2 ml-4 p-1 profimg" src={obj.img_src} alt="" />
 
                     <div>
-                      <Button bsPrefix="custom-name" id={obj.match_id} name={obj.img_src} onClick={showChat}>{obj.name}</Button>
+                      <Button style={{
+                        backgroundColor: "#282c34", /* Green */
+                        color: "white",
+                        padding: "15px 32px",
+                        textAlign: "center",
+                        textDecoration: "none",
+                        display: "inline-block",
+                        cursor: "pointer",
+                        fontSize: "1.25rem",
+                        borderColor: "#45A293",
+                        border: "3px solid-transparent",
+                        color: "#45A293",
+                        borderRadius: "50px",
+                      }}  bsPrefix="custom-name" id={obj.match_id} name={obj.img_src} onClick={showChat}>{obj.name}</Button>
                     </div>
                   </li>
                 ))}
@@ -114,7 +127,7 @@ function ChatRoom(props) {
 
         <input className="chatinput" value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="say something nice" />
 
-        <button className="chatbtn" type="submit" disabled={!formValue}>🕊️send</button>
+        <button className="chatbtn button" type="submit" disabled={!formValue} >🕊️send</button>
 
       </form>
 		</footer>
