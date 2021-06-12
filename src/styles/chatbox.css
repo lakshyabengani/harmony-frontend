@@ -1,6 +1,3 @@
-*{
-	box-sizing:border-box;
-}
 
 #container{
 	
@@ -36,9 +33,7 @@ aside li{
 aside li:hover{
 	background-color:#5e616a;
 }
-h2,h3{
-	margin:0;
-}
+
 aside li img{
 	border-radius:60%;
 	
@@ -126,7 +121,7 @@ main::-webkit-scrollbar-thumb {
   background: #6649b8;
 }
 
-form {
+.sendmsg {
   height: 10vh;
   position: fixed;
   bottom: 0;

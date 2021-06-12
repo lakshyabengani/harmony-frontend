@@ -8,14 +8,15 @@ import "../styles/chatbox.css"
 
 const Chats = props => {
     
-  const [CurrId, setCurrId] = useState('0');
+  const [CurrId, setCurrId] = useState(0);
+  const [currImg, setCurrImg] = useState("");
   console.log(CurrId)
   
   
   const [Matches,setMatches] = useState([]);
   
 
-useEffect(()=>{
+  useEffect(()=>{
     getMatches()
     .then((res) => {
       console.log(res);
@@ -29,8 +30,9 @@ useEffect(()=>{
 
   const showChat = (event) => {
     event.preventDefault();
-    console.log(event.target.name);
-    setCurrId(event.target.name);
+    console.log(event.target.id);
+    setCurrId(event.target.id);
+    setCurrImg(event.target.name);
   }
 
   return (
@@ -42,9 +44,9 @@ useEffect(()=>{
               <ul>
                 {Matches.map((obj, idx) => (
                   <li>
-                    <img className="mt-3 p-1" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="" />
+                    <img className="mt-3 p-1" src={currImg} alt="" />
                     <div>
-                      <Button bsPrefix="custom-name" id={obj.matchid} name={obj.matchid} onClick={showChat}>{obj.name}</Button>
+                      <Button bsPrefix="custom-name" id={obj.match_id} name={obj.img_src} onClick={showChat}>{obj.name}</Button>
                     </div>
                   </li>
                 ))}
@@ -57,15 +59,13 @@ useEffect(()=>{
           <section>
 
             {CurrId &&
-              <ChatRoom id={CurrId} />
+              <ChatRoom id={CurrId} currImg={currImg}/>
             }
 
           </section>
 
         </Col>
-      </Row>
-    
-    
+      </Row>   
         
     </div>
   );
@@ -73,7 +73,7 @@ useEffect(()=>{
 
 function ChatRoom(props) {
   const dummy = useRef();
-  const messagesRef = firestore.collection(props.id);
+  const messagesRef = firestore.collection(props.id.toString());
   const query = messagesRef.orderBy('createdAt').limit(25);
   const [messages] = useCollectionData(query, { idField: 'id' });
   console.log(messages)
@@ -88,8 +88,8 @@ function ChatRoom(props) {
     await messagesRef.add({
       message: formValue,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      uuid: "9899"
-    })
+      uuid: localStorage.getItem("public_user_id"),
+    });
 
     setFormValue('');
     dummy.current.scrollIntoView({ behavior: 'smooth' });
@@ -99,7 +99,7 @@ function ChatRoom(props) {
     <main>
 
       {messages && messages.map((msg) => 
-          <ChatMessage key={msg.id} message={msg} /> 
+          <ChatMessage key={msg.id} message={msg} currImg={props.currImg}/> 
         
       )}
       
@@ -108,11 +108,11 @@ function ChatRoom(props) {
 
     </main>
     <footer>
-      <form onSubmit={sendMessage}>
+      <form className ="sendmsg" onSubmit={sendMessage}>
 
         <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="say something nice" />
 
-        <button type="submit" disabled={!formValue}>🕊️s</button>
+        <button type="submit" disabled={!formValue}>🕊️send</button>
 
       </form>
 		</footer>
@@ -121,14 +121,15 @@ function ChatRoom(props) {
 }
 
 function ChatMessage(props) {
-  const { message } = props.message;
+  const { message,uuid } = props.message;
 
-  const messageClass = props.uuid === localStorage.getItem("public_user_id") ? 'received' : 'sent';
+  const messageClass = uuid === localStorage.getItem("public_user_id") ? 'sent' : 'received';
+  const img_src = uuid  === localStorage.getItem("public_user_id") ? props.currImg : 'https://banner2.cleanpng.com/20180920/yko/kisspng-computer-icons-portable-network-graphics-avatar-ic-5ba3c66df14d32.3051789815374598219884.jpg';
 
   return (
     <div>
       <div className={`message ${messageClass}`}>
-        <img src={'https://banner2.cleanpng.com/20180920/yko/kisspng-computer-icons-portable-network-graphics-avatar-ic-5ba3c66df14d32.3051789815374598219884.jpg'} />
+        <img src={img_src} />
         <p>{message}</p>
       </div>
     </div>
