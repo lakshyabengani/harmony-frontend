@@ -2,16 +2,21 @@ import { Badge, Button, Card, Carousel, Image } from "react-bootstrap";
 import '../styles/cards.style.css'
 
 const Cards = (props) => {
+
+  console.log(props.profile)
+
   return(
     <>
+    { props.profile !== null ?
       <Card className='card'>    
         <Card.Body>
           <Carousel nextIcon="" prevIcon="">
             {
               props.profile.images.map( (imgEle,index) => 
+                imgEle.img_src !== "" ?
                 <Carousel.Item key={index}>
                   <Image src={imgEle.img_src} alt="" className='card-image' rounded />
-                </Carousel.Item>)
+                </Carousel.Item> : null )
             }
           </Carousel>
           <br/>
@@ -40,7 +45,7 @@ const Cards = (props) => {
             CHAT
           </Button> : null}
         </Card.Body>
-      </Card>
+      </Card> : null }
     </>
   )
 }

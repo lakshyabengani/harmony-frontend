@@ -5,7 +5,7 @@ function CarouselCards(props) {
      const renderCardList = () => 
      {
           const list = props.suggestionlist.map( (person,idx) => (
-               <Cards profile={person} isMatch={true} />
+               <Cards profile={person} isMatch={false} />
           )) 
           console.log(list);
 
