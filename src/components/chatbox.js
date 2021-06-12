@@ -3,6 +3,7 @@ import { Row, Col, ListGroup, Button, Container } from "react-bootstrap";
 import { firestore } from "../firebase";
 import firebase from "firebase/app"
 import { useCollectionData } from "react-firebase-hooks/firestore";
+import { getUserMatchesApi } from "../api/backend";
 import "../styles/chatbox.css"
 
 const Chats = props => {
@@ -41,9 +42,9 @@ const Chats = props => {
   // }, [])
 
   const showChat = (event) => {
-      event.preventDefault();
-      console.log(event.target.name);
-      setCurrId(event.target.name);
+    event.preventDefault();
+    console.log(event.target.name);
+    setCurrId(event.target.name);
   }
 
   return (

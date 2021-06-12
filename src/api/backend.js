@@ -204,7 +204,7 @@ export const getUserMatchesApi = async() => {
         const token = localStorage.getItem('JWTtoken');
         const config = {
             method: 'get',
-            url: baseUrl + '/UserMatches',
+            url: baseUrl + '/user/matches',
             headers: {
                 'x-access-tokens': token,
             },
