@@ -124,7 +124,10 @@ function ChatMessage(props) {
   const { message,uuid } = props.message;
 
   const messageClass = uuid === localStorage.getItem("public_user_id") ? 'sent' : 'received';
-  const img_src = uuid  === localStorage.getItem("public_user_id") ? props.currImg : 'https://banner2.cleanpng.com/20180920/yko/kisspng-computer-icons-portable-network-graphics-avatar-ic-5ba3c66df14d32.3051789815374598219884.jpg';
+  const ownpic =
+    localStorage.getItem("img_src") ??
+    "https://banner2.cleanpng.com/20180920/yko/kisspng-computer-icons-portable-network-graphics-avatar-ic-5ba3c66df14d32.3051789815374598219884.jpg";
+  const img_src = uuid === localStorage.getItem("public_user_id") ? ownpic: props.currImg;
 
   return (
     <div>

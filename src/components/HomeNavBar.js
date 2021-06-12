@@ -32,6 +32,10 @@ const HomeNavBar = (props) => {
         .then(res => {
             console.log(res);
             setUserDetail({name : res.data.user_data.name , img_src : res.data.user_data.images[0].img_src});
+            localStorage.setItem(
+              "img_src",
+              res.data.user_data.images[0].img_src
+            );
         })
         .catch(errObj => {
         console.log(errObj)

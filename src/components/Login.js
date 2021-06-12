@@ -89,7 +89,7 @@ const Login = (props) => {
                                 <Form.Group controlId="username">
                                     <Form.Control
                                         type="text"
-                                        placeholder="User name"
+                                        placeholder="Emailid"
                                         onChange={handleChange}
                                         value={loginForm.username}
                                         onKeyPress={handleSubmitKeypress}
@@ -109,7 +109,7 @@ const Login = (props) => {
                                 {props.modalName === action.SIGNUP && (
                                     <Form.Group controlId="retypePassword">
                                         <Form.Control
-                                            type="text"
+                                            type="password"
                                             placeholder="Retype Password"
                                             onChange={handleChange}
                                             value={loginForm.retypePassword}
