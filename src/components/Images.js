@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import ImageModal from "./ImageModal";
 import { Button } from "react-bootstrap";
 

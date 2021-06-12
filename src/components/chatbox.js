@@ -12,34 +12,20 @@ const Chats = props => {
   console.log(CurrId)
   
   
+  const [Matches,setMatches] = useState([]);
+  
 
-  const [Matches,setMatches] = useState([
-      {
-          matchid : "1",
-          name : "Archit",
-          uuid : "0odid92"
-      },
-      {
-          matchid : "2",
-          name : "Yash",
-          uuid : "28i2dd2"
-      },
-  ]);
-
-  // useEffect(() => {
-  //   try {
-  //     getUserMatchesApi()
-  //       .then((obj) => {
-  //         console.log(obj);
-  //         setMatches(obj.data.matches);
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //       });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }, [])
+useEffect(()=>{
+    getMatches()
+    .then((res) => {
+      console.log(res);
+      let matchList = res.data.matches;
+      setMatches(matchList);
+    })
+    .catch(err =>{
+      console.log(err);
+    })
+  },[])
 
   const showChat = (event) => {
     event.preventDefault();

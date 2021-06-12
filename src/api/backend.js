@@ -14,7 +14,7 @@ const generateResponse = (statusCode , data , error ) => {
 
 export const signupApi = async(user_email,user_password) => {
     try{
-        const name = "Dummy";
+        const name = "";
 
         const data = JSON.stringify({
             f_name : name,
@@ -89,7 +89,9 @@ export const postSettingsApi = async( settings_form ) => {
     try{
         
         const token = localStorage.getItem('JWTtoken');
+        console.log(token);
         const data = JSON.stringify(settings_form);
+        console.log(data);
         const config = {
             method: 'post',
             url: baseUrl+'/settings',
@@ -99,7 +101,6 @@ export const postSettingsApi = async( settings_form ) => {
             },
             data : data
         }
-
         const res = await axios(config);
 
         console.log(res);
@@ -199,19 +200,131 @@ export const getProfileImagesApi = async() => {
     }
 }
 
-export const getUserMatchesApi = async() => {
-    try {
+export const getProfileAPi = async(profile_id) => {
+    try{
         const token = localStorage.getItem('JWTtoken');
+        console.log(token);
+        const res = await axios.get(baseUrl+'/user/profile',{
+            params:{
+                user_id : profile_id
+            },
+            headers:{
+                'x-access-tokens': token,
+            }
+        });
+
+        console.log(res);
+
+        const returnObject = generateResponse(res.status, res.data, null)
+        return returnObject;
+
+    }catch(err){
+
+        console.log(err.response);
+        const res = err.response;
+        const errorObject = generateResponse(res.status, null, res.data);
+        throw errorObject;
+    }
+}
+
+export const getNotifications = async(last_feed_time) =>{
+    try{
+        const token = localStorage.getItem('JWTtoken');
+
+        const res = await axios.get(baseUrl+'/notifications',{
+            params:{
+                last_feed_refresh_date : String(last_feed_time)
+            },
+            headers:{
+                'x-access-tokens': token,
+            }
+        })
+
+        console.log(res);
+
+        const returnObject = generateResponse(res.status, res.data, null)
+        return returnObject;
+
+    }catch(err){
+        
+        console.log(err.response);
+        const res = err.response;
+        const errorObject = generateResponse(res.status, null, res.data);
+        throw errorObject;
+    }
+}
+
+export const getProfileSuggestion = async(index,offset) =>{
+    try{
+        const token = localStorage.getItem('JWTtoken');
+
+        const res = await axios.get(baseUrl+'/get_profiles',{
+            params:{
+                index : index,
+                offset: offset
+            },
+            headers:{
+                'x-access-tokens': token,
+            }
+        })
+
+        console.log(res);
+
+        const returnObject = generateResponse(res.status, res.data, null)
+        return returnObject;
+
+    }catch(err){
+        
+        console.log(err.response);
+        const res = err.response;
+        const errorObject = generateResponse(res.status, null, res.data);
+        throw errorObject;
+    }
+}
+
+export const getMatches = async() =>{
+    try{
+        const token = localStorage.getItem('JWTtoken');
+
+        const res = await axios.get(baseUrl+'/user/matches',{
+            headers:{
+                'x-access-tokens': token,
+            }
+        })
+
+        console.log(res);
+
+        const returnObject = generateResponse(res.status, res.data, null)
+        return returnObject;
+
+    }catch(err){
+        
+        console.log(err.response);
+        const res = err.response;
+        const errorObject = generateResponse(res.status, null, res.data);
+        throw errorObject;
+    }
+}
+
+export const post_likes = async(likes_arr) =>{
+    try {
+
+        const token = localStorage.getItem('JWTtoken');
+        const data = JSON.stringify({right_swipe_ids : likes_arr});
         const config = {
-            method: 'get',
-            url: baseUrl + '/user/matches',
+            method: 'post',
+            url: baseUrl + '/post_like',
             headers: {
                 'x-access-tokens': token,
+                'Content-Type': 'application/json'
             },
+            data: data
         }
 
         const res = await axios(config);
+
         console.log(res);
+
         const returnObject = generateResponse(res.status, res.data, null)
         return returnObject;
 

@@ -1,38 +1,18 @@
-import {Card,Carousel, Image } from 'react-bootstrap';
-import { peoplesList } from "../config";
-import '../styles/cards.style.css'
+import Cards from './Cards';
 
 function CarouselCards(props) {
 
      const renderCardList = () => 
      {
-          const list = peoplesList.map( (person,idx) => (
-               
-               <Card className='card' key={idx}>    
-                    <Card.Body>
-                         <Carousel nextIcon="" prevIcon="">
-                              {
-                                   person.url.map( (imgUrl,index) => 
-                                        <Carousel.Item key={index}>
-                                             <Image src={imgUrl} alt="" className='card-image' rounded />
-                                        </Carousel.Item>)
-                              }
-                         </Carousel>
-                         <br/>
-                         <div className="container card-text" >
-                              <Card.Title>{person.name}, {person.age}</Card.Title>
-                                   <Card.Text>
-                                        {person.info}
-                                   </Card.Text>
-                         </div>
-                    </Card.Body>
-               </Card>
+          const list = props.suggestionlist.map( (person,idx) => (
+               <Cards profile={person} isMatch={false} />
           )) 
+          console.log(list);
 
           if(props.index < list.length)
                return list[props.index];
           else 
-               props.setShow(false);
+               props.handleList();
      }
 
      return (
