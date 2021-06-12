@@ -132,13 +132,13 @@ main::-webkit-scrollbar-thumb {
   font-size: 1.5rem;
 }
 
-form button {
+.chatbtn{
   width: 20%;
   background-color: rgb(56, 56, 143);
 }
 
 
-input {
+.chatinput {
   line-height: 1.5;
   width: 100%;
   font-size: 1.5rem;
@@ -165,18 +165,12 @@ button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
-
-
-
-
-
-
-ul, li {
+.li{
   text-align: left;
   list-style: none;
 }
 
-p {
+.p {
   max-width: 500px;
   margin-bottom: 12px;
   line-height: 24px;
@@ -186,6 +180,8 @@ p {
   color: white;
   text-align: center;
 }
+
+
 
 .message {
   display: flex;
@@ -209,7 +205,15 @@ p {
   color: black;
 }
 
-img {
+.profimg{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 2px 5px
+
+}
+
+.chatimg {
   width: 40px;
   height: 40px;
   border-radius: 50%;

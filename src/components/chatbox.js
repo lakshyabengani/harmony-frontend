@@ -41,10 +41,12 @@ const Chats = props => {
         <Col xs={3}>
           <container className="m-2">
             <aside>
-              <ul>
+              <ul className="li">
                 {Matches.map((obj, idx) => (
-                  <li>
-                    <img className="mt-3 p-1" src={obj.img_src} alt="" />
+
+                  <li className="li">
+                    <img className="mt-2 ml-4 p-1 profimg" src={obj.img_src} alt="" />
+
                     <div>
                       <Button bsPrefix="custom-name" id={obj.match_id} name={obj.img_src} onClick={showChat}>{obj.name}</Button>
                     </div>
@@ -110,9 +112,9 @@ function ChatRoom(props) {
     <footer>
       <form className ="sendmsg" onSubmit={sendMessage}>
 
-        <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="say something nice" />
+        <input className="chatinput" value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="say something nice" />
 
-        <button type="submit" disabled={!formValue}>🕊️send</button>
+        <button className="chatbtn" type="submit" disabled={!formValue}>🕊️send</button>
 
       </form>
 		</footer>
@@ -132,8 +134,8 @@ function ChatMessage(props) {
   return (
     <div>
       <div className={`message ${messageClass}`}>
-        <img src={img_src} />
-        <p>{message}</p>
+        <img className="chatimg" src={img_src} />
+        <p className="p">{message}</p>
       </div>
     </div>
   )
