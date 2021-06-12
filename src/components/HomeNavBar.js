@@ -7,6 +7,7 @@ import {
     faCog,
     faEllipsisV,
     fas,
+    faComments,
     faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { Redirect, useHistory } from "react-router-dom";
@@ -51,66 +52,73 @@ const HomeNavBar = (props) => {
     ));
 
     return (
-        <Navbar
-            className="custom-carets"
-            style={{ backgroundColor: "#A04A4A" }}
-        >
-            <Navbar.Brand href="#home">
-                <span className="appbar-title text-white">Harmony</span>
-            </Navbar.Brand>
-            <Nav className="mr-auto"></Nav>
-            <Nav className="justify-content-end">
-                <div className="container" style={{ padding: "5px" }}>
-                    <Image
-                        src={userDetail.img_src}
-                        roundedCircle
-                        width="72px"
-                        height="72px"
-                        onClick={()=>{props.setId(localStorage.getItem('public_user_id'));props.setShow(true);}}
-                    />
-                    <Nav.Item>
-                        <span className="appbar-subtitle text-white">
-                            {userDetail.name}
-                        </span>
-                    </Nav.Item>
-                    <Nav.Item style={{padding:'10px'}} onClick={() => {props.notifyShow(true);}}>
-                        <FontAwesomeIcon icon={faBell} size='2x' color='white'/>
-                    </Nav.Item>
-                    <Dropdown as={NavItem}>
-                        <Dropdown.Toggle
-                            as={CustomToggle}
-                            id="dropdown-custom-components"
-                            style={{ padding: "10px" }}
-                        >
-                            <FontAwesomeIcon
-                                icon={faEllipsisV}
-                                size="2x"
-                                pull="right"
-                                color="white"
-                            />
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu align="right">
-                            <Dropdown.Item
-                                className="appbar-options"
-                                onClick={() => history.push("/settings")}
-                            >
-                                <FontAwesomeIcon icon={faCog} />
-                                Settings
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                className="appbar-options"
-                                onClick={() => {
-                                    logoutFn();
-                                }}
-                            >
-                                <FontAwesomeIcon icon={faSignOutAlt} />
-                                Logout
-                            </Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </div>
-            </Nav>
-        </Navbar>
+      <Navbar className="custom-carets" style={{ backgroundColor: "#A04A4A" }}>
+        <Navbar.Brand href="#home">
+          <span className="appbar-title text-white">Harmony</span>
+        </Navbar.Brand>
+        <Nav className="mr-auto"></Nav>
+        <Nav className="justify-content-end">
+          <div className="container" style={{ padding: "5px" }}>
+            <Image
+              src={userDetail.img_src}
+              roundedCircle
+              width="72px"
+              height="72px"
+              onClick={() => {
+                props.setId(localStorage.getItem("public_user_id"));
+                props.setShow(true);
+              }}
+            />
+            <Nav.Item>
+              <span className="appbar-subtitle text-white">
+                {userDetail.name}
+              </span>
+            </Nav.Item>
+            <Nav.Item
+              style={{ padding: "10px" }}
+              onClick={() => {
+                props.notifyShow(true);
+              }}>
+              <FontAwesomeIcon icon={faBell} size="2x" color="white" />
+            </Nav.Item>
+            <Dropdown as={NavItem}>
+              <Dropdown.Toggle
+                as={CustomToggle}
+                id="dropdown-custom-components"
+                style={{ padding: "10px" }}>
+                <FontAwesomeIcon
+                  icon={faEllipsisV}
+                  size="2x"
+                  pull="right"
+                  color="white"
+                />
+              </Dropdown.Toggle>
+              <Dropdown.Menu align="right">
+                <Dropdown.Item
+                  className="appbar-options"
+                  onClick={() => history.push("/settings")}>
+                  <FontAwesomeIcon icon={faCog} />
+                  Settings
+                </Dropdown.Item>
+                <Dropdown.Item
+                  className="appbar-options"
+                  onClick={() => history.push("/messages")}>
+                  <FontAwesomeIcon icon={faComments} />
+                  Messages
+                </Dropdown.Item>
+                <Dropdown.Item
+                  className="appbar-options"
+                  onClick={() => {
+                    logoutFn();
+                  }}>
+                  <FontAwesomeIcon icon={faSignOutAlt} />
+                  Logout
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+        </Nav>
+      </Navbar>
     );
 };
 

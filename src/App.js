@@ -11,57 +11,42 @@ function App() {
     const ftu = useSelector((state) => state.auth.ftu);
     console.log(ftu +" " +auth);
     return (
-<<<<<<< HEAD
-        <Switch>
+      <BrowserRouter>
+        {auth ? (
+          <Switch>
+            <Route path="/settings" render={() => <SignupPage />} />
             <Route exact path="/home">
-                <div className="App">
-                    <LandingPage />
-                </div>
+              <HomePage />
             </Route>
-            <Route exact path="/">
-                <Redirect to="/home" />
+            <Route exact path="/messages">
+              <Chats/>
             </Route>
-            <Route path="/signup">
-                <SignupPage />
-            </Route>
-            <Route exact path="/swipeDeck">
-                <HomePage />
-            </Route>
-            <Route exact path ="/messages">
-                <Chats />
-            </Route>
-        </Switch>
-=======
-        <BrowserRouter>
-            {auth ? (
-                <Switch>
-                    <Route path="/settings" render={() => <SignupPage />}/>
-                    <Route exact path="/home">
-                        <HomePage />
-                    </Route>
-                    {ftu ? <Redirect to="/settings" exact /> : <Redirect to="/home" exact />}
-                    <Route exact path='/landing'>
-                        <Redirect to='/home' />
-                    </Route>
-                </Switch>
+            {ftu ? (
+              <Redirect to="/settings" exact />
             ) : (
-                <Switch>
-                    <Route exact path="/">
-                        <Redirect to='/landing' exact />
-                    </Route>
-                    <Route exact path="/landing">
-                        <div className="App">
-                            <LandingPage />
-                        </div>
-                    </Route>
-                    <Route exact path='/settings'>
-                        <Redirect to="/landing" exact />                        
-                    </Route>
-                    <Redirect to="/landing" exact />
-                </Switch>
+              <Redirect to="/home" exact />
             )}
-        </BrowserRouter>
->>>>>>> upstream/main
+            <Route exact path="/landing">
+              <Redirect to="/home" />
+            </Route>
+          </Switch>
+        ) : (
+          <Switch>
+            <Route exact path="/">
+              <Redirect to="/landing" exact />
+            </Route>
+            <Route exact path="/landing">
+              <div className="App">
+                <LandingPage />
+              </div>
+            </Route>
+            <Route exact path="/settings">
+              <Redirect to="/landing" exact />
+            </Route>
+            <Redirect to="/landing" exact />
+          </Switch>
+        )}
+      </BrowserRouter>
     );
 }
 
