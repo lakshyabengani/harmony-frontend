@@ -7,7 +7,7 @@ function CarouselCards(props) {
           const list = props.suggestionlist.map( (person,idx) => (
                <Cards profile={person} isMatch={false} />
           )) 
-          console.log(list);
+          // console.log(list);
 
           if(props.index < list.length)
                return list[props.index];

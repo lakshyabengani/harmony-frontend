@@ -123,17 +123,17 @@ const SignupForm = props => {
       navigator.geolocation.getCurrentPosition((position) => {
         data['lat'] = position.coords.latitude;
         data['long'] = position.coords.longitude;
-        console.log(data);
+        // console.log(data);
         sessionStorage.clear();
         postSettingsApi(data)
           .then(res => {
-            console.log(res);
-            alert('Form Submitted');
+            // console.log(res);
+            alert('Settings Updated');
             props.submitAction(true);
           })
           .catch(err => {
-            console.log(err);
-            alert('error in form submission');
+            // console.log(err);
+            alert('Error in updating your settings');
           });
       })
     }
@@ -159,8 +159,8 @@ const SignupForm = props => {
 
   const setFormData = (inputData) =>{
     
-    if(sessionStorage.getItem('spotify_access_token'))
-      console.log('spotify_access_token : '+sessionStorage.getItem('spotify_access_token'));
+    // if(sessionStorage.getItem('spotify_access_token'))
+      // console.log('spotify_access_token : '+sessionStorage.getItem('spotify_access_token'));
 
     setSignupForm({
       name : sessionStorage.getItem('name') ?? (inputData.name ?? ""),
@@ -190,24 +190,24 @@ const SignupForm = props => {
     try{
       if(window.location.hash){
         const a = window.location.hash.slice(1).split('&');
-        console.log(a);
+        // console.log(a);
         if(a){
           const tk = a[0].split('=');
-          console.log(tk[1]);
+          // console.log(tk[1]);
           sessionStorage.setItem('spotify_access_token',tk[1]);
         }
         window.location = `${SPOTIFY_REDIRECT_URL}` ;
       }
       getSettingsApi()
         .then((obj) => {
-          console.log(obj);
+          // console.log(obj);
           setFormData(obj.data.data);
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
         });
     }catch(err){
-      console.log(err); 
+      // console.log(err); 
     }
   },[])
 
@@ -419,12 +419,12 @@ const SignupForm = props => {
               <span style={{ fontSize: "125%" }}>Spotify</span>
             </Button>
           </Col>
-          <Col>
+          {/* <Col>
             <Button variant="danger" block>
               <FontAwesomeIcon icon={faYoutube} size="2x" pull="left" />
               <span style={{ fontSize: "125%" }}>YT Music</span>
             </Button>
-          </Col>
+          </Col> */}
         </Form.Row>
         <Form.Row>
           <Col>

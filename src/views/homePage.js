@@ -35,10 +35,10 @@ const HomePage = (props) => {
     try{
       const res = await getNotifications(new Date().toISOString());
     //   console.log(res)
-      console.log(res.data.notifications);
+    //   console.log(res.data.notifications);
       setNotifyList(res.data.notifications);
     }catch(err){
-      console.log(err);
+    //   console.log(err);
     }
   },5*1000)
 

@@ -3,7 +3,7 @@ import '../styles/cards.style.css'
 
 const Cards = (props) => {
 
-  console.log(props.profile)
+  // console.log(props.profile)
 
   return(
     <>

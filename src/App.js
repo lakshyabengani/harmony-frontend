@@ -9,7 +9,7 @@ import HomePage from "./views/homePage";
 function App() {
     const auth = useSelector((state) => state.auth.isLoggedIn);
     const ftu = useSelector((state) => state.auth.ftu);
-    console.log(ftu +" " +auth);
+    // console.log(ftu +" " +auth);
     return (
       <BrowserRouter>
         {auth ? (

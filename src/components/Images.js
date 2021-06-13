@@ -8,7 +8,7 @@ const Images = (props) => {
       <Button onClick = {
         () => props.toggleModalShow(true)
       }> 
-        Add some hot pics
+        Add some pics
       </Button>
       < ImageModal
       show = {

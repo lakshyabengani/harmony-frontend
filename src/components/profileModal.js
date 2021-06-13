@@ -16,7 +16,7 @@ const ProfileModal = (props) => {
         setUser(res.data.user_data);
     })
     .catch(errObj => {
-    console.log(errObj)
+    // console.log(errObj)
     });
   },[])
 

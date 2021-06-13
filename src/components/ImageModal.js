@@ -55,21 +55,21 @@ const ImageModal = (props) => {
       _Images[i].src = data[i].src;     
     }
     setImages(_Images);
-    console.log(Images);
+    // console.log(Images);
   }
 
   useEffect(() => {
     try{
       getProfileImagesApi()
         .then((obj) => {
-          console.log(obj);
+          // console.log(obj);
           setImagesData(obj.data.user_images);
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
         });
     }catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   },[])
 
@@ -87,7 +87,7 @@ const ImageModal = (props) => {
       }
     }
     setImages(_Images);
-    console.log(Images);
+    // console.log(Images);
 
   }
 
@@ -99,7 +99,7 @@ const ImageModal = (props) => {
     const uuid = localStorage.getItem("public_user_id")
         
     function uploadImagesToFirebase(_Images, uuid){
-      console.log(_Images)
+      // console.log(_Images)
       const promises = []
       let i
       for (i = 0; i < _Images.length; ++i) {
@@ -107,15 +107,15 @@ const ImageModal = (props) => {
           const promise = new Promise((resolve, reject) => {
             var pathRef = storage.ref(`images/${uuid}/${_Images[i].ref}`)
             const url = async (_Images, i, pathRef) => {
-              console.log(_Images[i])
+              // console.log(_Images[i])
               await pathRef.put(_Images[i].file).then((snapshot) => {
-                console.log(`Uploaded Image${i}`);
+                // console.log(`Uploaded Image${i}`);
               });
               pathRef.getDownloadURL()
                 .then((url) => {
-                  console.log(url);
+                  // console.log(url);
                   _Images[i].src = url
-                  console.log(_Images)
+                  // console.log(_Images)
                   resolve()
                 });
               setImages(_Images);
@@ -128,10 +128,10 @@ const ImageModal = (props) => {
       }
       Promise.all(promises).then(() => {
         const data = { 'images': Images }
-        console.log(data)
+        // console.log(data)
         postImagesApi(data)
           .then(res => {
-            console.log(res);
+            // console.log(res);
             //alert('Images Uploaded');
           })
           .catch(err => {
@@ -159,27 +159,27 @@ const ImageModal = (props) => {
         _Images[i].src = "";
         // Delete the file
         desertRef.delete().then(() => {
-          console.log("File deleted successfully")
+          // console.log("File deleted successfully")
           const data = { 'images': _Images }
-          console.log(data)
+          // console.log(data)
           postImagesApi(data)
             .then(res => {
-              console.log(res);
+              // console.log(res);
               setImages(_Images);
               //alert('Images Uploaded');
             })
             .catch(err => {
-              console.log(err);
+              // console.log(err);
             });
         }).catch((error) => {
-          console.log(error)
+          // console.log(error)
         });
         
         break;
       }
     }
     
-    console.log(Images);
+    // console.log(Images);
   }
 
   return(

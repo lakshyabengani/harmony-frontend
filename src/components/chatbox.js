@@ -10,7 +10,7 @@ const Chats = props => {
     
   const [CurrId, setCurrId] = useState(0);
   const [currImg, setCurrImg] = useState("");
-  console.log(CurrId)
+  // console.log(CurrId)
   
   
   const [Matches,setMatches] = useState([]);
@@ -19,18 +19,18 @@ const Chats = props => {
   useEffect(()=>{
     getMatches()
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       let matchList = res.data.matches;
       setMatches(matchList);
     })
     .catch(err =>{
-      console.log(err);
+      // console.log(err);
     })
   },[])
 
   const showChat = (event) => {
     event.preventDefault();
-    console.log(event.target.id);
+    // console.log(event.target.id);
     setCurrId(event.target.id);
     setCurrImg(event.target.name);
   }
@@ -91,7 +91,7 @@ function ChatRoom(props) {
   const messagesRef = firestore.collection(props.id.toString());
   const query = messagesRef.orderBy('createdAt').limit(25);
   const [messages] = useCollectionData(query, { idField: 'id' });
-  console.log(messages)
+  // console.log(messages)
   const [formValue, setFormValue] = useState('');
 
 
@@ -147,7 +147,7 @@ function ChatMessage(props) {
   return (
     <div>
       <div className={`message ${messageClass}`}>
-        <img className="chatimg" src={img_src} />
+        <img className="chatimg" src={img_src} alt=""/>
         <p className="p">{message}</p>
       </div>
     </div>

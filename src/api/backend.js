@@ -46,7 +46,7 @@ export const signupApi = async(user_email,user_password) => {
     
     }catch(err){
        
-        console.log(err.response);
+        // console.log(err.response);
         const res = err.response;
         const errorObject = generateResponse(res.status,null,res.data.error);
         throw errorObject;
@@ -77,7 +77,7 @@ export const loginApi = async(user_email,user_password) => {
 
     }catch(err){
 
-        console.log(err.response);
+        // console.log(err.response);
         const res = err.response;
         const errorObject = generateResponse(res.status,null,res.data.error);
         throw errorObject;
@@ -89,9 +89,9 @@ export const postSettingsApi = async( settings_form ) => {
     try{
         
         const token = localStorage.getItem('JWTtoken');
-        console.log(token);
+        // console.log(token);
         const data = JSON.stringify(settings_form);
-        console.log(data);
+        // console.log(data);
         const config = {
             method: 'post',
             url: baseUrl+'/settings',
@@ -103,14 +103,14 @@ export const postSettingsApi = async( settings_form ) => {
         }
         const res = await axios(config);
 
-        console.log(res);
+        // console.log(res);
         
         const returnObject = generateResponse(res.status,res.data,null)
         return returnObject;
 
     }catch(err){
 
-        console.log(err.response);
+        // console.log(err.response);
         const res = err.response;
         const errorObject = generateResponse(res.status,null,res.data.error);
         throw errorObject;
@@ -131,13 +131,13 @@ export const getSettingsApi = async() => {
 
         const res = await axios(config);
 
-        console.log(res);
+        // console.log(res);
         const returnObject = generateResponse(res.status,res.data,null)
         return returnObject;
 
     }catch(err){
 
-        console.log(err.response);
+        // console.log(err.response);
         const res = err.response;
         const errorObject = generateResponse(res.status,null,res.data.error);
         throw errorObject;
@@ -161,14 +161,14 @@ export const postImagesApi = async (im_data) => {
 
         const res = await axios(config);
 
-        console.log(res);
+        // console.log(res);
 
         const returnObject = generateResponse(res.status, res.data, null)
         return returnObject;
 
     } catch (err) {
 
-        console.log(err.response);
+        // console.log(err.response);
         const res = err.response;
         const errorObject = generateResponse(res.status, null, res.data.error);
         throw errorObject;
@@ -187,13 +187,13 @@ export const getProfileImagesApi = async() => {
         }
 
         const res = await axios(config);
-        console.log(res);
+        // console.log(res);
         const returnObject = generateResponse(res.status, res.data, null)
         return returnObject;
 
     }catch (err) {
 
-        console.log(err.response);
+        // console.log(err.response);
         const res = err.response;
         const errorObject = generateResponse(res.status, null, res.data.error);
         throw errorObject;
@@ -203,7 +203,7 @@ export const getProfileImagesApi = async() => {
 export const getProfileAPi = async(profile_id) => {
     try{
         const token = localStorage.getItem('JWTtoken');
-        console.log(token);
+        // console.log(token);
         const res = await axios.get(baseUrl+'/user/profile',{
             params:{
                 user_id : profile_id
@@ -213,14 +213,14 @@ export const getProfileAPi = async(profile_id) => {
             }
         });
 
-        console.log(res);
+        // console.log(res);
 
         const returnObject = generateResponse(res.status, res.data, null)
         return returnObject;
 
     }catch(err){
 
-        console.log(err.response);
+        // console.log(err.response);
         const res = err.response;
         const errorObject = generateResponse(res.status, null, res.data);
         throw errorObject;
@@ -240,14 +240,14 @@ export const getNotifications = async(last_feed_time) =>{
             }
         })
 
-        console.log(res);
+        // console.log(res);
 
         const returnObject = generateResponse(res.status, res.data, null)
         return returnObject;
 
     }catch(err){
         
-        console.log(err.response);
+        // console.log(err.response);
         const res = err.response;
         const errorObject = generateResponse(res.status, null, res.data);
         throw errorObject;
@@ -268,14 +268,14 @@ export const getProfileSuggestion = async(index,offset) =>{
             }
         })
 
-        console.log(res);
+        // console.log(res);
 
         const returnObject = generateResponse(res.status, res.data, null)
         return returnObject;
 
     }catch(err){
         
-        console.log(err.response);
+        // console.log(err.response);
         const res = err.response;
         const errorObject = generateResponse(res.status, null, res.data);
         throw errorObject;
@@ -292,14 +292,14 @@ export const getMatches = async() =>{
             }
         })
 
-        console.log(res);
+        // console.log(res);
 
         const returnObject = generateResponse(res.status, res.data, null)
         return returnObject;
 
     }catch(err){
         
-        console.log(err.response);
+        // console.log(err.response);
         const res = err.response;
         const errorObject = generateResponse(res.status, null, res.data);
         throw errorObject;
@@ -323,14 +323,14 @@ export const post_likes = async(likes_arr) =>{
 
         const res = await axios(config);
 
-        console.log(res);
+        // console.log(res);
 
         const returnObject = generateResponse(res.status, res.data, null)
         return returnObject;
 
     } catch (err) {
 
-        console.log(err.response);
+        // console.log(err.response);
         const res = err.response;
         const errorObject = generateResponse(res.status, null, res.data.error);
         throw errorObject;

@@ -27,10 +27,10 @@ const HomeNavBar = (props) => {
     const [userDetail,setUserDetail] = useState({ name : '' , img_src : ''});
 
     useEffect(()=>{
-        console.log(localStorage.getItem('public_user_id'));
+        // console.log(localStorage.getItem('public_user_id'));
         getProfileAPi(localStorage.getItem('public_user_id'))
         .then(res => {
-            console.log(res);
+            // console.log(res);
             setUserDetail({name : res.data.user_data.name , img_src : res.data.user_data.images[0].img_src});
             localStorage.setItem(
               "img_src",
@@ -38,7 +38,7 @@ const HomeNavBar = (props) => {
             );
         })
         .catch(errObj => {
-        console.log(errObj)
+        // console.log(errObj)
         })
     },[])
 

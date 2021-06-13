@@ -54,10 +54,10 @@ const SwipeDeck = props => {
   }
   
   useEffect(()=>{
-    console.log(batch.index);
+    // console.log(batch.index);
     getProfileSuggestion(batch.index,batch.offset)
       .then(res => {
-        console.log(res);
+        // console.log(res);
         // setList(res.data.recommendation);
         setBatch({...batch,list:res.data.recommendation});
         if(res.data.recommendation.length > 0 ){
@@ -73,32 +73,27 @@ const SwipeDeck = props => {
 
   useEffect(()=>{
     if(showDeck === false && batch.list.length > 0){
-      console.log("not showing");
-      console.log(batch.likes);
+      // console.log("not showing");
+      // console.log(batch.likes);
       post_likes(batch.likes)
       .then(res => console.log(res))
       .catch(err => console.log(err));
       getProfileSuggestion(batch.index+1,batch.offset)
       .then(res => {
-        console.log(res);
-    //     console.log(batch.index);
-        // setLikes([]);
-        // setCardIndex(0);
-        // setBatch({...batch,index: n_index});
-        // setList(res.data.recommendations);
-        setBatch({...batch,list:res.data.recommendations,likes:[],cardIndex:0,index: batch.index+1});
-        if(res.data.recommendations.length > 0 ){
+        // console.log(res);
+        setBatch({...batch,list:res.data.recommendation,likes:[],cardIndex:0,index: batch.index+1});
+        if(res.data.recommendation && res.data.recommendation.length > 0 ){
           setShowDeck(true);
         }else{
           setShowDeck(false);
         }
     })
     .catch(errObj => {
-      console.log(errObj)
+      // console.log(errObj)
     });
     }
     else{
-      console.log("showing");
+      // console.log("showing");
     }
   },[showDeck])
 

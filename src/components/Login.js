@@ -40,28 +40,28 @@ const Login = (props) => {
             if (props.modalName === action.SIGNUP) {
                 signupApi(loginForm.username, loginForm.password)
                     .then((res) => {
-                        console.log(res);
+                        // console.log(res);
                         postSubmitAction("/settings", res.status);
                         dispatch(signUp());
                     })
                     .catch((errObj) => {
-                        console.log(errObj);
+                        // console.log(errObj);
                         postSubmitAction("/settings", errObj.status);
                     });
             } else {
                 loginApi(loginForm.username, loginForm.password)
                     .then((res) => {
-                        console.log(res);
+                        // console.log(res);
                         postSubmitAction("/home", res.status);
                         dispatch(signIn());
                     })
                     .catch((errObj) => {
-                        console.log(errObj);
+                        // console.log(errObj);
                         postSubmitAction("/home", errObj.status);
                     });
             }
         } else {
-            alert("Both username and password needs to be filled");
+            alert("Both Email Id and Password needs to be filled");
         }
     };
 
@@ -89,7 +89,7 @@ const Login = (props) => {
                                 <Form.Group controlId="username">
                                     <Form.Control
                                         type="text"
-                                        placeholder="Emailid"
+                                        placeholder="Email Id"
                                         onChange={handleChange}
                                         value={loginForm.username}
                                         onKeyPress={handleSubmitKeypress}
@@ -129,7 +129,7 @@ const Login = (props) => {
                     >
                         SUBMIT
                     </Button>
-                    <div className="buttonText">
+                    {/* <div className="buttonText">
                         <p>OR</p>
                     </div>
                     <Button
@@ -140,7 +140,7 @@ const Login = (props) => {
                     >
                         <FontAwesomeIcon icon={faGoogle} pull="left" />
                         {props.modalName} USING GOOGLE
-                    </Button>
+                    </Button> */}
                 </Modal.Body>
             </Modal>
         </React.Fragment>

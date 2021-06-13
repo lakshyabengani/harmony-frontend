@@ -2,7 +2,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Col, Form, Image, InputGroup, Row } from "react-bootstrap";
 import "../styles/sidebar.style.css";
-import { msgList } from "../config";
+// import { msgList } from "../config";
 import { useEffect, useState } from "react";
 import { getMatches } from "../api/backend";
 import { useInterval } from "../utils/Pollings";
@@ -53,12 +53,12 @@ const SideBar = (props) =>{
   useEffect(()=>{
     getMatches()
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       let matchList = res.data.matches;
       setMsgData(matchList);
     })
     .catch(err =>{
-      console.log(err);
+      // console.log(err);
     })
   },[])
 
@@ -68,7 +68,7 @@ const SideBar = (props) =>{
       let matchList = res.data.matches;
       setMsgData(matchList);
     }catch(err){
-      console.log(err);
+      // console.log(err);
     }
   },5*1000)
 
