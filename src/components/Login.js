@@ -46,6 +46,7 @@ const Login = (props) => {
                     })
                     .catch((errObj) => {
                         // console.log(errObj);
+                        alert('User with this Email Id exists')
                         postSubmitAction("/settings", errObj.status);
                     });
             } else {
@@ -57,6 +58,7 @@ const Login = (props) => {
                     })
                     .catch((errObj) => {
                         // console.log(errObj);
+                        alert('Email Id and/or Password are wrong')
                         postSubmitAction("/home", errObj.status);
                     });
             }
